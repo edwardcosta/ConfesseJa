@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "575426506184",
+    "firebase_url": "https://confesse-ja-b9a3e.firebaseio.com",
+    "project_id": "confesse-ja-b9a3e",
+    "storage_bucket": "confesse-ja-b9a3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575426506184:android:22030a33ee4483db6024fd",
+        "android_client_info": {
+          "package_name": "br.com.paroquiadoverbodivino.confesseja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575426506184-bo343jfd0vahbj2d14u5pjjgfk23gf3p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.paroquiadoverbodivino.confesseja",
+            "certificate_hash": "9557cc0f927ff8f6c98524a74561c094a93e0cde"
+          }
+        },
+        {
+          "client_id": "575426506184-l4vcts61rohjhmg6bu0up3am861ashsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-IosNlDAJo_Uk9oDJFsv_BS2SMvXVzTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575426506184-l4vcts61rohjhmg6bu0up3am861ashsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
