@@ -1,3 +1,6 @@
+import 'package:confesseja/screen/map/main_map_content.dart';
+import 'package:confesseja/screen/home/main_home_content.dart';
+import 'package:confesseja/screen/school/main_school_content.dart';
 import 'package:flutter/material.dart';
 
 class MyStatelessWidget extends StatelessWidget {
@@ -39,7 +42,6 @@ class MyStatefulPageView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     _myStatefulPageViewState = _MyStatefulPageViewState(pageSelected: selectedIndex);
     return _myStatefulPageViewState;
   }
@@ -51,27 +53,10 @@ class _MyStatefulPageViewState extends State<MyStatefulPageView>{
   _MyStatefulPageViewState({this.pageSelected: 0});
   int pageSelected;
   PageView _pageView;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Center(
-      child: Text(
-        'Index 0: Home',
-        style: optionStyle,
-      ),
-    ),
-    Center(
-      child: Text(
-        'Index 1: Business',
-        style: optionStyle,
-      ),
-    ),
-    Center(
-      child: Text(
-        'Index 2: School',
-        style: optionStyle,
-      ),
-    ),
+    HomeContet(),
+    MapContet(),
+    SchoolContet(),
   ];
 
   void setPage(int page){
@@ -87,7 +72,6 @@ class _MyStatefulPageViewState extends State<MyStatefulPageView>{
   
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     _pageView = PageView(
       controller: PageController(initialPage: pageSelected),
       children: _widgetOptions,
@@ -111,7 +95,6 @@ class MyStatefulBottomNavigationBar extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     _myStatefulBottomNavigationBarState  = _MyStatefulBottomNavigationBarState(selectedIndex: selectedIndex);
     return _myStatefulBottomNavigationBarState;
   }
@@ -137,7 +120,6 @@ class _MyStatefulBottomNavigationBarState extends State<MyStatefulBottomNavigati
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -145,8 +127,8 @@ class _MyStatefulBottomNavigationBarState extends State<MyStatefulBottomNavigati
           title: Text('Home'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          title: Text('Business'),
+          icon: Icon(Icons.map),
+          title: Text('Map'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.school),
