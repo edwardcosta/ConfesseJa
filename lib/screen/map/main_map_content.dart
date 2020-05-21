@@ -45,17 +45,20 @@ class MapContentState extends State<MapContet>{
         _brasilia : CameraPosition(target: LatLng(userLocation.latitude,userLocation.longitude),zoom: 15),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
-          if(userLocation != null){
-            controller.animateCamera(
-              CameraUpdate.newCameraPosition(
-                CameraPosition(
-                  target: LatLng(userLocation.latitude,userLocation.longitude),
-                  zoom: 15
+          _getUserLocation().then((value) => {
+            if(value != null){
+              controller.animateCamera(
+                CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                    target: LatLng(value.latitude,value.longitude),
+                    zoom: 15
+                  )
                 )
               )
-            );
-          }
+            }
+          });
         },
+        myLocationEnabled: true,
       ),
       /*floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
