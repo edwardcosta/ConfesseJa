@@ -8,55 +8,46 @@ Licensing: More information can be found here: https://github.com/akshathjain/sl
 
 import 'dart:ui';
 
-import 'package:confesseja/screen/home/map/main_map_content.dart';
+import 'package:confesseja/res/strings.dart';
+import 'package:confesseja/screens/home/map/home_map.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:flutter/services.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 
-void main() => runApp(SlidingUpPanelExample());
-
-class SlidingUpPanelExample extends StatelessWidget {
+class Home extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.grey[200],
-      systemNavigationBarIconBrightness: Brightness.dark,
-      systemNavigationBarDividerColor: Colors.black,
-    ));
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SlidingUpPanel Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
-    );
-  }
+  _HomeState createState() => _HomeState();
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+class _HomeState extends State<Home> {
 
-class _HomePageState extends State<HomePage> {
-
-  final _map = MapContet();
-
-  final double _initFabHeight = 120.0;
+  final double _initFabHeight = 150.0;
   double _fabHeight;
   double _panelHeightOpen;
-  double _panelHeightClosed = 95.0;
+  double _panelHeightClosed = 125.0;
+  double _opacity = 1;
+  final _map = MapContent(onGoogleMapController: onGoogleMapController,updatePosition: updateUserLocation,);
+  static GoogleMapController _controller;
+  Geolocator geolocator = Geolocator();
+  static LatLng userLocation;
+
 
   @override
   void initState(){
     super.initState();
 
     _fabHeight = _initFabHeight;
+  }
+
+  static void onGoogleMapController(GoogleMapController controller){
+    _controller = controller;
+  }
+
+  static void updateUserLocation(LatLng position){
+    userLocation = position;
   }
 
   @override
@@ -73,11 +64,12 @@ class _HomePageState extends State<HomePage> {
             minHeight: _panelHeightClosed,
             parallaxEnabled: true,
             parallaxOffset: .5,
-            body: _body(),
+            body: _map,
             panelBuilder: (sc) => _panel(sc),
             borderRadius: BorderRadius.only(topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
             onPanelSlide: (double pos) => setState((){
               _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) + _initFabHeight;
+              _opacity = 1 - pos;
             }),
           ),
 
@@ -91,7 +83,16 @@ class _HomePageState extends State<HomePage> {
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: (){
-                _map.createState();
+                if(userLocation != null){
+                    _controller.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                                target: LatLng(userLocation.latitude,userLocation.longitude),
+                                zoom: 15
+                            )
+                        )
+                    );
+                  }
               },
               backgroundColor: Colors.white,
             ),
@@ -119,14 +120,15 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "Bem Vindo",
                 style: TextStyle(
-                  fontWeight: FontWeight.w500
+                  fontWeight: FontWeight.w500,
+                  color: Color.fromRGBO(0, 0, 0, _opacity)
                 ),
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color.fromRGBO(255, 255, 255, _opacity),
                 borderRadius: BorderRadius.circular(24.0),
                 boxShadow: [BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, .25),
+                  color: Color.fromRGBO(0, 0, 0, _opacity * .25),
                   blurRadius: 16.0
                 )],
               ),
@@ -167,14 +169,18 @@ class _HomePageState extends State<HomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "Explore Pittsburgh",
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 24.0,
-                ),
-              ),
+              IconButton(icon: Icon(Icons.search), onPressed: null),
+              Text("Busque um confessor ou local",
+              style: AppStrings.NORMAL_STYLE
+              )
             ],
+          ),
+
+          Divider(
+            indent: 32,
+            endIndent: 32,
+            thickness: 1,
+            color: Colors.black26,
           ),
 
           Row(
@@ -185,6 +191,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 16.0,
+                  color: Color.fromRGBO(0, 0, 0, _opacity)
                 ),
               ),
             ],
@@ -289,9 +296,5 @@ class _HomePageState extends State<HomePage> {
       ],
 
     );
-  }
-
-  Widget _body(){
-    return _map;
   }
 }

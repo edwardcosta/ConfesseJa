@@ -3,18 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class MapContet extends StatefulWidget {
-  const MapContet();
+class MapContent extends StatefulWidget {
+  const MapContent({Key key,this.onGoogleMapController,this.updatePosition}) : super (key: key);
+
+  final ValueChanged<GoogleMapController> onGoogleMapController;
+  final ValueChanged<LatLng> updatePosition;
 
   @override
   State<StatefulWidget> createState() => MapContentState();
   
 }
 
-class MapContentState extends State<MapContet>{
+class MapContentState extends State<MapContent>{
   Completer<GoogleMapController> _controller = Completer();
   Geolocator geolocator = Geolocator();
+  var isPermissionLocationEnabled = false;
 
   /*static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -51,9 +56,23 @@ class MapContentState extends State<MapContet>{
     });
   }
 
+  void initPositionListener(){
+    geolocator.getPositionStream().listen((event) {
+        widget.updatePosition(LatLng(event.latitude,event.longitude));
+      }
+    );
+  }
+
   
   @override
   Widget build(BuildContext context) {
+    Permission.location.status.then((value) {
+      if(value.isGranted){
+        isPermissionLocationEnabled = true;
+        initPositionListener();
+      }
+    });
+
     return new Scaffold(
       body: GoogleMap(
         mapType: MapType.normal,
@@ -62,6 +81,7 @@ class MapContentState extends State<MapContet>{
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
           onMyLocationTap();
+          widget.onGoogleMapController(controller);
         },
         myLocationEnabled: true,
         myLocationButtonEnabled: false,
