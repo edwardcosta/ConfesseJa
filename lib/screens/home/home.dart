@@ -1,17 +1,8 @@
-/*
-Name: Akshath Jain
-Date: 3/18/2019 - 1/25/2020
-Purpose: Example app that implements the package: sliding_up_panel
-Copyright: © 2020, Akshath Jain. All rights reserved.
-Licensing: More information can be found here: https://github.com/akshathjain/sliding_up_panel/blob/master/LICENSE
-*/
-
 import 'dart:ui';
 
 import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/screens/home/map/home_map.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -31,7 +22,6 @@ class _HomeState extends State<Home> {
   double _opacity = 1;
   final _map = MapContent(onGoogleMapController: onGoogleMapController,updatePosition: updateUserLocation,);
   static GoogleMapController _controller;
-  Geolocator geolocator = Geolocator();
   static LatLng userLocation;
 
 
