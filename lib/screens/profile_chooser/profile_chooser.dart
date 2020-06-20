@@ -3,6 +3,7 @@ import 'package:confesseja/res/colors.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileChooser extends StatefulWidget {
   @override
@@ -10,23 +11,12 @@ class ProfileChooser extends StatefulWidget {
 }
 
 class _ProfileChooserState extends State<ProfileChooser> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   double currentPage = 0;
-  FirebaseUser _user;
-
-  void getUser() async {
-    FirebaseUser user = await _auth.currentUser();
-    if (user != null) {
-      setState(() {
-        _user = user;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    getUser();
+    final user = Provider.of<FirebaseUser>(context);
     return Stack(children: <Widget>[
       PageView(
         controller: PageController(),
@@ -40,7 +30,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                   onTap: () {
                     Firestore.instance
                         .collection('users')
-                        .document(_user.uid)
+                        .document(user.uid)
                         .setData({'account_type': currentPage},merge: true);
                   },
                   child: Card(
@@ -51,7 +41,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image(
-                            image: AssetImage('images/bootwise-icon-02-1.png'),
+                            image: AssetImage('images/laity.png'),
                           )
                         ],
                       ),
@@ -70,7 +60,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                   onTap: () {
                     Firestore.instance
                         .collection('users')
-                        .document(_user.uid)
+                        .document(user.uid)
                         .setData({'account_type': currentPage},merge: true);
                   },
                   child: Card(
@@ -100,7 +90,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                   onTap: () {
                     Firestore.instance
                         .collection('users')
-                        .document(_user.uid)
+                        .document(user.uid)
                         .setData({'account_type': currentPage},merge: true);
                   },
                   child: Card(

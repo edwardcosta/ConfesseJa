@@ -1,5 +1,5 @@
 import 'package:confesseja/res/colors.dart';
-import 'package:confesseja/services/auth.dart';
+import 'package:confesseja/utils/services/auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
