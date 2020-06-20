@@ -12,9 +12,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class _LoginState extends State<Login> {
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
                   child: Form(
+                    key: _formKey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

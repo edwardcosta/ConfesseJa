@@ -1,5 +1,5 @@
 import 'package:confesseja/screens/authenticate/authenticate.dart';
-import 'package:confesseja/screens/home/home.dart';
+import 'package:confesseja/screens/profile_chooser/profile_chooser_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,7 @@ class Wrapper  extends StatelessWidget {
     if(user == null){
       return Authenticate();
     } else {
-      return Home();
+      return ProfileChooserWrapper();
     }
   }
 }
