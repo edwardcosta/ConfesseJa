@@ -1,3 +1,4 @@
+import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -48,13 +49,13 @@ class _LoginState extends State<Login> {
                           ),
                           child: TextFormField(
                             validator: (val) {
-                              if(val.isEmpty) return 'Campo vazio';
-                              if(!EmailValidator.validate(val)) return 'Email inválido';
+                              if(val.isEmpty) return AppStrings.REGISTER_EMPTY;
+                              if(!EmailValidator.validate(val)) return AppStrings.REGISTER_INVALID_EMAIL;
                                 return null;
                                 },
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              labelText: 'Email',
+                              labelText: AppStrings.REGISTER_EMAIL,
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
                               errorBorder: InputBorder.none,
@@ -79,13 +80,13 @@ class _LoginState extends State<Login> {
                           ),
                           child: TextFormField(
                             validator: (val) {
-                              if(val.isEmpty) return 'Campo vazio';
+                              if(val.isEmpty) return AppStrings.REGISTER_EMPTY;
                               return null;
                             },
                             obscureText: true,
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              labelText: 'Senha',
+                              labelText: AppStrings.REGISTER_PASSWORD,
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
                               errorBorder: InputBorder.none,
@@ -106,7 +107,7 @@ class _LoginState extends State<Login> {
                         RaisedButton(
                           color: AppColors.secondaryColor,
                           child: Text(
-                            'Entrar',
+                            AppStrings.REGISTER_LOGIN,
                             style: TextStyle(
                               color: AppColors.iconTextColor,
                             ),
@@ -118,7 +119,7 @@ class _LoginState extends State<Login> {
                               dynamic result = _auth.login(email.trim(), password.trim());
                               if (result == null) {
                                 setState(() {
-                                  error = 'Falha ao fazer login';
+                                  error = AppStrings.REGISTER_LOGIN_ERROR;
                                 });
                               }
                             }
@@ -136,10 +137,11 @@ class _LoginState extends State<Login> {
               FlatButton(
                 child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
                   Text(
-                    'Não tem conta? ',
+                    AppStrings.REGISTER_NOT_REGISTERED,
                     style: TextStyle(color: AppColors.contentTextColor),
                   ),
-                  Text('Cadastre-se aqui.',
+                  Text(' '),
+                  Text(AppStrings.REGISTER_GOTO_SIGNUP,
                       style: TextStyle(
                         color: AppColors.titleTextColor,
                         fontWeight: FontWeight.bold,
@@ -151,7 +153,7 @@ class _LoginState extends State<Login> {
               ),
               FlatButton(
                 child: Text(
-                  'Esqueci minha senha',
+                  AppStrings.REGISTER_PASSWORD_FORGOT,
                 ),
                 onPressed: () {},
               ),

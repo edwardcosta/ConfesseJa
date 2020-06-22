@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:confesseja/res/colors.dart';
+import 'package:confesseja/res/strings.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ class ProfileChooser extends StatefulWidget {
 }
 
 class _ProfileChooserState extends State<ProfileChooser> {
-
   double currentPage = 0;
 
   @override
@@ -31,9 +31,12 @@ class _ProfileChooserState extends State<ProfileChooser> {
                     Firestore.instance
                         .collection('users')
                         .document(user.uid)
-                        .setData({'account_type': currentPage},merge: true);
+                        .setData({'account_type': currentPage}, merge: true);
                   },
                   child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32),
+                    ),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 20.0),
@@ -41,8 +44,15 @@ class _ProfileChooserState extends State<ProfileChooser> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image(
-                            image: AssetImage('images/laity.png'),
-                          )
+                            image: AssetImage('assets/images/laity.png'),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Text(
+                            AppStrings.PROFILE_CHOOSER_LAITY,
+                            style: AppStrings.TITLE_STYLE,
+                          ),
                         ],
                       ),
                     ),
@@ -61,9 +71,12 @@ class _ProfileChooserState extends State<ProfileChooser> {
                     Firestore.instance
                         .collection('users')
                         .document(user.uid)
-                        .setData({'account_type': currentPage},merge: true);
+                        .setData({'account_type': currentPage}, merge: true);
                   },
                   child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32),
+                    ),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 20.0),
@@ -71,8 +84,15 @@ class _ProfileChooserState extends State<ProfileChooser> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image(
-                            image: AssetImage('images/church.png'),
-                          )
+                            image: AssetImage('assets/images/church.png'),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Text(
+                            AppStrings.PROFILE_CHOOSER_PARISH,
+                            style: AppStrings.TITLE_STYLE,
+                          ),
                         ],
                       ),
                     ),
@@ -91,9 +111,12 @@ class _ProfileChooserState extends State<ProfileChooser> {
                     Firestore.instance
                         .collection('users')
                         .document(user.uid)
-                        .setData({'account_type': currentPage},merge: true);
+                        .setData({'account_type': currentPage}, merge: true);
                   },
                   child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32),
+                    ),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 20.0),
@@ -101,8 +124,15 @@ class _ProfileChooserState extends State<ProfileChooser> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image(
-                            image: AssetImage('images/priest.png'),
-                          )
+                            image: AssetImage('assets/images/priest.png'),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Text(
+                            AppStrings.PROFILE_CHOOSER_PRIEST,
+                            style: AppStrings.TITLE_STYLE,
+                          ),
                         ],
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:confesseja/res/colors.dart';
+import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,8 @@ class _RegisterState extends State<Register> {
 
   final RegExp hasUppercase = new RegExp('[A-Z]');
   final RegExp hasLowercase = new RegExp('[a-z]');
-  final RegExp hasNumbercase = new RegExp('[0-9]');
-  final RegExp hasSymbolcase = new RegExp('[!@#\$&*~]');
+  final RegExp hasNumber = new RegExp('[0-9]');
+  final RegExp hasSymbol = new RegExp('[!@#\$&*~]');
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +65,14 @@ class _RegisterState extends State<Register> {
                             ),
                             child: TextFormField(
                               validator: (val) {
-                                if (val.isEmpty) return 'Campo vazio';
+                                if (val.isEmpty) return AppStrings.REGISTER_EMPTY;
                                 if (!EmailValidator.validate(val))
-                                  return 'Email inválido';
+                                  return AppStrings.REGISTER_INVALID_EMAIL;
                                 return null;
                               },
                               decoration: new InputDecoration(
                                 border: InputBorder.none,
-                                labelText: 'Email',
+                                labelText: AppStrings.REGISTER_EMAIL,
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
@@ -97,22 +98,22 @@ class _RegisterState extends State<Register> {
                             child: TextFormField(
                               obscureText: true,
                               validator: (val) {
-                                if (val.isEmpty) return 'Campo vazio';
+                                if (val.isEmpty) return AppStrings.REGISTER_EMPTY;
                                 if (val.length < 6)
-                                  return 'Senha deve conter 6 ou mais caracteres';
+                                  return AppStrings.REGISTER_PASSWORD_LENGTH;
                                 if (!hasUppercase.hasMatch(val))
-                                  return 'Senha deve conter ao menos 1 letra maiúscula';
+                                  return AppStrings.REGISTER_PASSWORD_UPPERCASE;
                                 if (!hasLowercase.hasMatch(val))
-                                  return 'Senha deve conter ao menos 1 letra minúsucla';
-                                if (!hasNumbercase.hasMatch(val))
-                                  return 'Senha deve conter ao menos 1 número';
-                                if (!hasSymbolcase.hasMatch(val))
-                                  return 'Senha deve conter ao menos 1 caracter não alfanumérico';
+                                  return AppStrings.REGISTER_PASSWORD_LOWERCASE;
+                                if (!hasNumber.hasMatch(val))
+                                  return AppStrings.REGISTER_PASSWORD_NUMBER;
+                                if (!hasSymbol.hasMatch(val))
+                                  return AppStrings.REGISTER_PASSWORD_SYMBOL;
                                 return null;
                               },
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                labelText: 'Senha',
+                                labelText: AppStrings.REGISTER_PASSWORD,
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
@@ -138,23 +139,23 @@ class _RegisterState extends State<Register> {
                             child: TextFormField(
                               obscureText: true,
                               validator: (val) {
-                                if (val.isEmpty) return 'Campo vazio';
-                                if (val != password) return 'Senhas diferentes';
+                                if (val.isEmpty) return AppStrings.REGISTER_EMPTY;
+                                if (val != password) return AppStrings.REGISTER_PASSWORD_MATCH;
                                 if (val.length < 6)
-                                  return 'Senha deve conter 6 ou mais caracteres';
+                                  return AppStrings.REGISTER_PASSWORD_LENGTH;
                                 if (!hasUppercase.hasMatch(val))
-                                  return 'Senha deve conter ao menos 1 letra maiúscula';
+                                  return AppStrings.REGISTER_PASSWORD_UPPERCASE;
                                 if (!hasLowercase.hasMatch(val))
-                                  return 'Senha deve conter ao menos 1 letra minúsucla';
-                                if (!hasNumbercase.hasMatch(val))
-                                  return 'Senha deve conter ao menos 1 número';
-                                if (!hasSymbolcase.hasMatch(val))
-                                  return 'Senha deve conter ao menos 1 caracter não alfanumérico';
+                                  return AppStrings.REGISTER_PASSWORD_LOWERCASE;
+                                if (!hasNumber.hasMatch(val))
+                                  return AppStrings.REGISTER_PASSWORD_NUMBER;
+                                if (!hasSymbol.hasMatch(val))
+                                  return AppStrings.REGISTER_PASSWORD_SYMBOL;
                                 return null;
                               },
                               decoration: new InputDecoration(
                                 border: InputBorder.none,
-                                labelText: 'Reescreva a senha',
+                                labelText: AppStrings.REGISTER_RETYPE_PASSWORD,
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
@@ -172,7 +173,7 @@ class _RegisterState extends State<Register> {
                           RaisedButton(
                             color: AppColors.secondaryColor,
                             child: Text(
-                              'Cadastrar',
+                              AppStrings.REGISTER_SIGNUP,
                               style: TextStyle(
                                 color: AppColors.iconTextColor,
                               ),
@@ -184,7 +185,7 @@ class _RegisterState extends State<Register> {
                                         email.trim(), password.trim());
                                 if(result == null){
                                   setState(() {
-                                    error =  'Aconteceu algum erro';
+                                    error =  AppStrings.REGISTER_SIGNUP_ERROR;
                                   });
                                 }
                               }
