@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
       backgroundColor: AppColors.lightPrimaryColor,
       body: Center(
         child: Container(
+          constraints: BoxConstraints(maxWidth: 500),
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,

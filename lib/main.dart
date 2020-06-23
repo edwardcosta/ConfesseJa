@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Firestore.instance.settings(persistenceEnabled: true);
     return StreamProvider<FirebaseUser>.value(
-      value: AuthService().user,
+      value: AuthService().firebaseUser,
         child: MaterialApp(
           title: AppStrings.APP_NAME,
           home: Wrapper()

@@ -17,6 +17,14 @@ class _ProfileChooserState extends State<ProfileChooser> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
+
+    void _setAccountType() {
+      Firestore.instance
+          .collection('users')
+          .document(user.uid)
+          .setData({'account_type': currentPage,'admin': false}, merge: true);
+    }
+
     return Stack(children: <Widget>[
       PageView(
         controller: PageController(),
@@ -28,10 +36,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
                 child: GestureDetector(
                   onTap: () {
-                    Firestore.instance
-                        .collection('users')
-                        .document(user.uid)
-                        .setData({'account_type': currentPage}, merge: true);
+                    _setAccountType();
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -68,10 +73,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
                 child: GestureDetector(
                   onTap: () {
-                    Firestore.instance
-                        .collection('users')
-                        .document(user.uid)
-                        .setData({'account_type': currentPage}, merge: true);
+                    _setAccountType();
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -108,10 +110,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
                 child: GestureDetector(
                   onTap: () {
-                    Firestore.instance
-                        .collection('users')
-                        .document(user.uid)
-                        .setData({'account_type': currentPage}, merge: true);
+                    _setAccountType();
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(

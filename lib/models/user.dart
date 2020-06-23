@@ -1,6 +1,6 @@
 class User {
-  final String uid;
+  final double accountType;
 
-  User({this.uid});
+  User({this.accountType});
   
 }

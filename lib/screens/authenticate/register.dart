@@ -42,6 +42,7 @@ class _RegisterState extends State<Register> {
         ),
         Center(
           child: Container(
+            constraints: BoxConstraints(maxWidth: 500),
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,

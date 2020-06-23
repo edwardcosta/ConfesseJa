@@ -1,153 +1,10 @@
-import 'dart:ui';
-
-import 'package:confesseja/res/strings.dart';
-import 'package:confesseja/screens/home/map/home_map.dart';
-import 'package:confesseja/screens/home/profile/profile.dart';
-import 'package:confesseja/utils/animated_routes/size_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:confesseja/res/strings.dart';
+import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
+class HomeBottoMenuContent{
 
-class _HomeState extends State<Home> {
-  final double _initFabHeight = 150.0;
-  double _fabHeight;
-  double _panelHeightOpen;
-  double _panelHeightClosed = 125.0;
-  double _opacity = 1;
-  final _map = MapContent(
-    onGoogleMapController: onGoogleMapController,
-    updatePosition: updateUserLocation,
-  );
-  static GoogleMapController _controller;
-  static LatLng userLocation;
-  String welcomeText = 'Bem Vindo';
-
-  @override
-  void initState() {
-    super.initState();
-
-    _fabHeight = _initFabHeight;
-  }
-
-  static void onGoogleMapController(GoogleMapController controller) {
-    _controller = controller;
-  }
-
-  static void updateUserLocation(LatLng position) {
-    userLocation = position;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    _panelHeightOpen = MediaQuery.of(context).size.height; //* .80;
-    final user = Provider.of<FirebaseUser>(context);
-
-    if (user != null && user.displayName != null && user.displayName.isNotEmpty) {
-      welcomeText += ', ' + user.displayName;
-    }
-
-    return Material(
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: <Widget>[
-          SlidingUpPanel(
-            maxHeight: _panelHeightOpen,
-            minHeight: _panelHeightClosed,
-            parallaxEnabled: true,
-            parallaxOffset: .5,
-            body: _map,
-            panelBuilder: (sc) => _panel(sc),
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(18.0),
-                topRight: Radius.circular(18.0)),
-            onPanelSlide: (double pos) => setState(() {
-              _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
-                  _initFabHeight;
-              _opacity = 1 - pos;
-            }),
-          ),
-
-          // the fab
-          Positioned(
-            right: 20.0,
-            bottom: _fabHeight,
-            child: FloatingActionButton(
-              child: Icon(
-                Icons.gps_fixed,
-                color: Theme.of(context).primaryColor,
-              ),
-              onPressed: () {
-                if (userLocation != null) {
-                  _controller.animateCamera(CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                          target: LatLng(
-                              userLocation.latitude, userLocation.longitude),
-                          zoom: 15)));
-                }
-              },
-              backgroundColor: Colors.white,
-            ),
-          ),
-
-          Positioned(
-              top: 0,
-              child: ClipRRect(
-                  child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).padding.top,
-                        color: Colors.transparent,
-                      )))),
-
-          //the SlidingUpPanel Title
-          Positioned(
-            top: 52.0,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(SizeRoute(page: Profile(welcomeText: welcomeText,)));
-              },
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 18.0),
-                child: Hero(
-                  tag: 'welcomeText',
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Text(
-                      welcomeText,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromRGBO(0, 0, 0, _opacity)),
-                    ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, _opacity),
-                  borderRadius: BorderRadius.circular(24.0),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, _opacity * .25),
-                        blurRadius: 16.0)
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _panel(ScrollController sc) {
+  static Widget botomMenuContent(BuildContext context, ScrollController sc, double opacity){
     return MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -194,7 +51,7 @@ class _HomeState extends State<Home> {
                   style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 16.0,
-                      color: Color.fromRGBO(0, 0, 0, _opacity)),
+                      color: Color.fromRGBO(0, 0, 0, opacity)),
                 ),
               ],
             ),
@@ -277,7 +134,7 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  Widget _button(String label, IconData icon, Color color) {
+  static Widget _button(String label, IconData icon, Color color) {
     return Column(
       children: <Widget>[
         Container(

@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
 class MapContent extends StatefulWidget {
-  const MapContent({Key key, this.onGoogleMapController, this.updatePosition})
-      : super(key: key);
+  const MapContent({Key key, this.onGoogleMapController}) : super(key: key);
 
   final ValueChanged<GoogleMapController> onGoogleMapController;
-  final ValueChanged<LatLng> updatePosition;
 
   @override
   State<StatefulWidget> createState() => MapContentState();
@@ -19,11 +19,6 @@ class MapContentState extends State<MapContent> {
   Completer<GoogleMapController> _controller = Completer();
   var isPermissionLocationEnabled = false;
   String _mapStyle;
-
-  /*static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );*/
 
   static final CameraPosition _brasilia = CameraPosition(
     target: LatLng(-15.77972, -47.92972),
@@ -39,14 +34,26 @@ class MapContentState extends State<MapContent> {
 
   @override
   Widget build(BuildContext context) {
+    final userLocation = Provider.of<LocationData>(context);
     return new Scaffold(
       body: GoogleMap(
         mapType: MapType.normal,
-        initialCameraPosition: _brasilia,
+        initialCameraPosition: userLocation == null
+            ? _brasilia
+            : CameraPosition(
+                target: LatLng(userLocation.latitude, userLocation.longitude),
+                zoom: 15),
         onMapCreated: (GoogleMapController controller) {
           controller.setMapStyle(_mapStyle);
           _controller.complete(controller);
           widget.onGoogleMapController(controller);
+          if (userLocation != null) {
+            controller.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                    target:
+                        LatLng(userLocation.latitude, userLocation.longitude),
+                    zoom: 15)));
+          }
         },
         myLocationEnabled: true,
         myLocationButtonEnabled: false,
