@@ -7,9 +7,9 @@ import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 class MapContent extends StatefulWidget {
-  const MapContent({Key key, this.onGoogleMapController}) : super(key: key);
+  final ValueChanged<GoogleMapController> onGoogleMapCotrollerChanged;
 
-  final ValueChanged<GoogleMapController> onGoogleMapController;
+  MapContent({this.onGoogleMapCotrollerChanged});
 
   @override
   State<StatefulWidget> createState() => MapContentState();
@@ -17,8 +17,10 @@ class MapContent extends StatefulWidget {
 
 class MapContentState extends State<MapContent> {
   Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController _mapController;
   var isPermissionLocationEnabled = false;
   String _mapStyle;
+  LocationData userLocation;
 
   static final CameraPosition _brasilia = CameraPosition(
     target: LatLng(-15.77972, -47.92972),
@@ -32,9 +34,19 @@ class MapContentState extends State<MapContent> {
         .then((value) => _mapStyle = value);
   }
 
+  void moveCameraToUserLocation() async {
+    if (userLocation != null) {
+      _mapController
+          .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(userLocation.latitude, userLocation.longitude),
+        zoom: 15,
+      )));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userLocation = Provider.of<LocationData>(context);
+    userLocation = Provider.of<LocationData>(context);
     return new Scaffold(
       body: GoogleMap(
         mapType: MapType.normal,
@@ -46,14 +58,8 @@ class MapContentState extends State<MapContent> {
         onMapCreated: (GoogleMapController controller) {
           controller.setMapStyle(_mapStyle);
           _controller.complete(controller);
-          widget.onGoogleMapController(controller);
-          if (userLocation != null) {
-            controller.animateCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(
-                    target:
-                        LatLng(userLocation.latitude, userLocation.longitude),
-                    zoom: 15)));
-          }
+          _mapController = controller;
+          widget.onGoogleMapCotrollerChanged(controller);
         },
         myLocationEnabled: true,
         myLocationButtonEnabled: false,

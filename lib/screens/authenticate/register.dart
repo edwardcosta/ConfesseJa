@@ -1,4 +1,3 @@
-import 'package:confesseja/res/colors.dart';
 import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:email_validator/email_validator.dart';
@@ -29,13 +28,11 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightPrimaryColor,
       body: Stack(children: <Widget>[
         Positioned(
           top: MediaQuery.of(context).padding.top,
           child: IconButton(
               icon: Icon(Icons.arrow_back),
-              color: AppColors.iconTextColor,
               onPressed: () {
                 widget.toggleView();
               }),
@@ -172,12 +169,8 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                           RaisedButton(
-                            color: AppColors.secondaryColor,
                             child: Text(
                               AppStrings.REGISTER_SIGNUP,
-                              style: TextStyle(
-                                color: AppColors.iconTextColor,
-                              ),
                             ),
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {

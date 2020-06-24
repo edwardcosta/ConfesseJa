@@ -1,4 +1,3 @@
-import 'package:confesseja/res/colors.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,6 @@ class _HomePriestState extends State<HomePriest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: <Widget>[
           Center(

@@ -1,4 +1,3 @@
-import 'package:confesseja/res/colors.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,6 @@ class _HomePerishState extends State<HomePerish> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.perishColor,
       body: Stack(
         children: <Widget>[
           Center(

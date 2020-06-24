@@ -1,4 +1,3 @@
-import 'package:confesseja/res/colors.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,6 @@ class _HomeAdminState extends State<HomeAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.secondaryColor,
       body: Stack(
         children: <Widget>[
           Center(

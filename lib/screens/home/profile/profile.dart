@@ -1,5 +1,4 @@
 import 'package:confesseja/models/user.dart';
-import 'package:confesseja/res/colors.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,32 +11,15 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     final _auth = AuthService();
     final topPadding = MediaQuery.of(context).padding.top;
-    Color bckgColor;
-
-    switch (user.accountType.toInt()) {
-      case 0:
-        bckgColor = AppColors.lightPrimaryColor;
-        break;
-      case 1:
-        bckgColor = AppColors.perishColor;
-        break;
-      case 2:
-        bckgColor = AppColors.primaryColor;
-        break;
-      case 42:
-        bckgColor = AppColors.secondaryColor;
-        break;
-      default:
-        bckgColor = AppColors.lightPrimaryColor;
-    }
 
     return Scaffold(
-      backgroundColor: bckgColor,
       body: Stack(children: <Widget>[
         Positioned(
           top: topPadding,
           child: IconButton(
-              icon: Icon(Icons.arrow_back,color: AppColors.iconTextColor,),
+              icon: Icon(
+                Icons.arrow_back,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               }),
@@ -53,7 +35,6 @@ class Profile extends StatelessWidget {
                 child: Text(welcomeText,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: AppColors.titleTextColor,
                     )),
               ),
             ),
@@ -61,7 +42,11 @@ class Profile extends StatelessWidget {
         ),
         Center(
           child: RaisedButton(
-              child: Text('Sair'),
+              child: Text(
+                'Sair',
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
+              color: Theme.of(context).accentColor,
               onPressed: () async {
                 await _auth.logout();
                 Navigator.of(context).pop();

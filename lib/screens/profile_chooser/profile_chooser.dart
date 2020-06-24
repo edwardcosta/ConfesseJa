@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:confesseja/res/colors.dart';
 import 'package:confesseja/res/strings.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +29,6 @@ class _ProfileChooserState extends State<ProfileChooser> {
         controller: PageController(),
         children: [
           Scaffold(
-            backgroundColor: AppColors.lightPrimaryColor,
             body: Center(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
@@ -67,7 +65,6 @@ class _ProfileChooserState extends State<ProfileChooser> {
             ),
           ),
           Scaffold(
-            backgroundColor: AppColors.lightPrimaryColor,
             body: Center(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
@@ -104,7 +101,6 @@ class _ProfileChooserState extends State<ProfileChooser> {
             ),
           ),
           Scaffold(
-            backgroundColor: AppColors.lightPrimaryColor,
             body: Center(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
@@ -155,8 +151,8 @@ class _ProfileChooserState extends State<ProfileChooser> {
               dotsCount: 3,
               position: currentPage,
               decorator: DotsDecorator(
-                  color: AppColors.iconTextColor,
-                  activeColor: AppColors.secondaryColor),
+                  color: Theme.of(context).primaryColor,
+                  activeColor: Theme.of(context).accentColor),
             ),
           )),
     ]);

@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confesseja/res/strings.dart';
 import 'package:flutter/material.dart';
 
-class HomeBottoMenuContent{
-
-  static Widget botomMenuContent(BuildContext context, ScrollController sc, double opacity){
+class SlideUpPanelContent {
+  static Widget slideUpPanelContent(
+      BuildContext context, ScrollController sc, double opacity) {
     return MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -41,17 +41,19 @@ class HomeBottoMenuContent{
               indent: 32,
               endIndent: 32,
               thickness: 1,
-              color: Colors.black26,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  "Menu Inferior",
-                  style: TextStyle(
+                Opacity(
+                  opacity: opacity,
+                  child: Text(
+                    "Menu Inferior",
+                    style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 16.0,
-                      color: Color.fromRGBO(0, 0, 0, opacity)),
+                    ),
+                  ),
                 ),
               ],
             ),

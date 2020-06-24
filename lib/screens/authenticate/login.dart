@@ -2,7 +2,6 @@ import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:confesseja/res/colors.dart';
 
 class Login extends StatefulWidget {
   final Function toggleView;
@@ -23,7 +22,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightPrimaryColor,
       body: Center(
         child: Container(
           constraints: BoxConstraints(maxWidth: 500),
@@ -50,10 +48,11 @@ class _LoginState extends State<Login> {
                           ),
                           child: TextFormField(
                             validator: (val) {
-                              if(val.isEmpty) return AppStrings.REGISTER_EMPTY;
-                              if(!EmailValidator.validate(val)) return AppStrings.REGISTER_INVALID_EMAIL;
-                                return null;
-                                },
+                              if (val.isEmpty) return AppStrings.REGISTER_EMPTY;
+                              if (!EmailValidator.validate(val))
+                                return AppStrings.REGISTER_INVALID_EMAIL;
+                              return null;
+                            },
                             decoration: new InputDecoration(
                               border: InputBorder.none,
                               labelText: AppStrings.REGISTER_EMAIL,
@@ -81,7 +80,7 @@ class _LoginState extends State<Login> {
                           ),
                           child: TextFormField(
                             validator: (val) {
-                              if(val.isEmpty) return AppStrings.REGISTER_EMPTY;
+                              if (val.isEmpty) return AppStrings.REGISTER_EMPTY;
                               return null;
                             },
                             obscureText: true,
@@ -106,18 +105,15 @@ class _LoginState extends State<Login> {
                           height: 20.0,
                         ),
                         RaisedButton(
-                          color: AppColors.secondaryColor,
                           child: Text(
                             AppStrings.REGISTER_LOGIN,
-                            style: TextStyle(
-                              color: AppColors.iconTextColor,
-                            ),
                           ),
                           onPressed: () async {
                             print(email);
                             print(password);
                             if (_formKey.currentState.validate()) {
-                              dynamic result = _auth.login(email.trim(), password.trim());
+                              dynamic result =
+                                  _auth.login(email.trim(), password.trim());
                               if (result == null) {
                                 setState(() {
                                   error = AppStrings.REGISTER_LOGIN_ERROR;
@@ -139,12 +135,10 @@ class _LoginState extends State<Login> {
                 child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
                   Text(
                     AppStrings.REGISTER_NOT_REGISTERED,
-                    style: TextStyle(color: AppColors.contentTextColor),
                   ),
                   Text(' '),
                   Text(AppStrings.REGISTER_GOTO_SIGNUP,
                       style: TextStyle(
-                        color: AppColors.titleTextColor,
                         fontWeight: FontWeight.bold,
                       )),
                 ]),

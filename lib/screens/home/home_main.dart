@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:confesseja/models/user.dart';
 import 'package:confesseja/res/strings.dart';
-import 'package:confesseja/screens/home/home_bottom_menu_conent.dart';
-import 'package:confesseja/screens/home/map/home_map.dart';
+import 'package:confesseja/screens/home/home_slide_up_panel_content.dart';
+import 'package:confesseja/screens/home/home_map.dart';
 import 'package:confesseja/screens/home/profile/profile.dart';
 import 'package:confesseja/utils/animated_routes/size_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,11 +24,15 @@ class _HomeMainState extends State<HomeMain> {
   double _panelHeightOpen;
   double _panelHeightClosed = 125.0;
   double _opacity = 1;
-  final _map = MapContent(
-    onGoogleMapController: onGoogleMapController,
+  String welcomeText = AppStrings.HOME_WELCOME;
+  final MapContent map = MapContent(
+    onGoogleMapCotrollerChanged: onGoogleMapController,
   );
   static GoogleMapController _controller;
-  String welcomeText = AppStrings.HOME_WELCOME;
+
+  static void onGoogleMapController(GoogleMapController controller) {
+    _controller = controller;
+  }
 
   @override
   void initState() {
@@ -36,16 +40,11 @@ class _HomeMainState extends State<HomeMain> {
     _fabHeight = _initFabHeight;
   }
 
-  static void onGoogleMapController(GoogleMapController controller) {
-    _controller = controller;
-  }
-
   @override
   Widget build(BuildContext context) {
     _panelHeightOpen = MediaQuery.of(context).size.height; //* .80;
     final firebaseUser = Provider.of<FirebaseUser>(context);
     final user = Provider.of<User>(context);
-
     LocationData userLocation = Provider.of<LocationData>(context);
 
     if (firebaseUser != null &&
@@ -54,18 +53,19 @@ class _HomeMainState extends State<HomeMain> {
       welcomeText += ', ' + firebaseUser.displayName;
     }
 
-    return Material(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
           SlidingUpPanel(
+            color: Theme.of(context).primaryColor,
             maxHeight: _panelHeightOpen,
             minHeight: _panelHeightClosed,
             parallaxEnabled: true,
             parallaxOffset: .5,
-            body: _map,
+            body: map,
             panelBuilder: (sc) =>
-                HomeBottoMenuContent.botomMenuContent(context, sc, _opacity),
+                SlideUpPanelContent.slideUpPanelContent(context, sc, _opacity),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(18.0),
                 topRight: Radius.circular(18.0)),
@@ -80,21 +80,24 @@ class _HomeMainState extends State<HomeMain> {
           Positioned(
             right: 20.0,
             bottom: _fabHeight,
-            child: FloatingActionButton(
-              child: Icon(
-                Icons.gps_fixed,
-                color: Theme.of(context).primaryColor,
-              ),
-              onPressed: () {
-                if (userLocation != null) {
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                  colorScheme: Theme.of(context)
+                      .colorScheme
+                      .copyWith(secondary: Theme.of(context).primaryColor)),
+              child: FloatingActionButton(
+                child: Icon(
+                  Icons.gps_fixed,
+                  color: Theme.of(context).accentColor,
+                ),
+                onPressed: () {
                   _controller.animateCamera(CameraUpdate.newCameraPosition(
                       CameraPosition(
                           target: LatLng(
                               userLocation.latitude, userLocation.longitude),
                           zoom: 15)));
-                }
-              },
-              backgroundColor: Colors.white,
+                },
+              ),
             ),
           ),
 
@@ -121,28 +124,28 @@ class _HomeMainState extends State<HomeMain> {
                   user: user,
                 )));
               },
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 18.0),
-                child: Hero(
-                  tag: 'welcomeText',
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Text(
-                      welcomeText,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromRGBO(0, 0, 0, _opacity)),
+              child: Opacity(
+                opacity: _opacity,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 18.0),
+                  child: Hero(
+                    tag: 'welcomeText',
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Text(welcomeText,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          )),
                     ),
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, _opacity),
-                  borderRadius: BorderRadius.circular(24.0),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, _opacity * .25),
-                        blurRadius: 16.0)
-                  ],
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(24.0),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 16.0)
+                    ],
+                  ),
                 ),
               ),
             ),
