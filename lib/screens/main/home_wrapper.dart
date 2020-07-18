@@ -1,7 +1,8 @@
 import 'package:confesseja/models/user.dart';
-import 'package:confesseja/screens/home/admin/home_admin.dart';
-import 'package:confesseja/screens/home/home_main.dart';
-import 'package:confesseja/screens/home/priest/home_priest_wrapper.dart';
+import 'package:confesseja/screens/main/admin/home_admin.dart';
+import 'package:confesseja/screens/main/laity/home_main.dart';
+import 'package:confesseja/screens/main/perish/persih_wrapper.dart';
+import 'package:confesseja/screens/main/priest/priest_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
@@ -51,10 +52,10 @@ class _HomeWrapperState extends State<HomeWrapper> {
         widgetToReturn = HomeMain();
         break;
       case 1:
-        widgetToReturn = HomePerish();
+        widgetToReturn = PerishWrapper();
         break;
       case 2:
-        widgetToReturn = HomePriestWrapper();
+        widgetToReturn = PriestWrapper();
         break;
       case 42:
         widgetToReturn = HomeAdmin();

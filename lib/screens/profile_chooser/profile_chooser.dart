@@ -54,7 +54,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                             height: 20.0,
                           ),
                           Text(
-                            AppStrings.PROFILE_CHOOSER_LAITY,
+                            AppStrings.PROFILE_CHOOSER[0],
                             style: AppStrings.TITLE_STYLE,
                           ),
                         ],
@@ -90,7 +90,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                             height: 20.0,
                           ),
                           Text(
-                            AppStrings.PROFILE_CHOOSER_CHURCH,
+                            AppStrings.PROFILE_CHOOSER[1],
                             style: AppStrings.TITLE_STYLE,
                           ),
                         ],
@@ -126,7 +126,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                             height: 20.0,
                           ),
                           Text(
-                            AppStrings.PROFILE_CHOOSER_PRIEST,
+                            AppStrings.PROFILE_CHOOSER[2],
                             style: AppStrings.TITLE_STYLE,
                           ),
                         ],

@@ -29,14 +29,32 @@ class SlideUpPanelContent {
             SizedBox(
               height: 18.0,
             ),
-            Row(
+            Form(
+              child: TextFormField(
+                decoration: new InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Busque um confessor ou local",
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.only(
+                        left: 20, bottom: 11, top: 11, right: 20),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(
+                          top: 0), // add padding to adjust icon
+                      child: Icon(Icons.search),
+                    )),
+              ),
+            ),
+            /*Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(icon: Icon(Icons.search), onPressed: null),
                 Text("Busque um confessor ou local",
                     style: AppStrings.NORMAL_STYLE)
               ],
-            ),
+            ),*/
             Divider(
               indent: 32,
               endIndent: 32,

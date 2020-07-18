@@ -14,6 +14,10 @@ class AuthService {
     try{
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+      Firestore.instance
+          .collection(ServerValues.USERS_COLLECTION)
+          .document(user.uid)
+          .setData({'profile_step_confirmation':0,'created_at':DateTime.now().toIso8601String()}, merge: true);
       return user;
     } catch(e){
       print(e.toString());
@@ -26,10 +30,6 @@ class AuthService {
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       if(user != null){
-        Firestore.instance
-          .collection(ServerValues.USERS_COLLECTION)
-          .document(user.uid)
-          .setData({'profile_step_confirmation':0,'created_at':DateTime.now().toIso8601String()}, merge: true);
         return user;
       } else {
         return null;

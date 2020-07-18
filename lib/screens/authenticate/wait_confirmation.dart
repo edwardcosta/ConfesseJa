@@ -1,8 +1,8 @@
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePriestWaitConfirmation extends StatelessWidget {
-  const HomePriestWaitConfirmation({Key key}) : super(key: key);
+class WaitConfirmation extends StatelessWidget {
+  const WaitConfirmation({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

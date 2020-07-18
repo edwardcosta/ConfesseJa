@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:confesseja/models/user.dart';
 import 'package:confesseja/res/strings.dart';
-import 'package:confesseja/screens/home/home_slide_up_panel_content.dart';
-import 'package:confesseja/screens/home/home_map.dart';
-import 'package:confesseja/screens/home/profile/profile.dart';
+import 'package:confesseja/screens/main/laity/home_slide_up_panel_content.dart';
+import 'package:confesseja/screens/main/map.dart';
+import 'package:confesseja/screens/main/profile/profile.dart';
 import 'package:confesseja/utils/animated_routes/size_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _HomeMainState extends State<HomeMain> {
   double _panelHeightOpen;
   double _panelHeightClosed = 125.0;
   double _opacity = 1;
-  String welcomeText = AppStrings.HOME_WELCOME;
+  String welcomeText = AppStrings.WELCOME;
   final MapContent map = MapContent(
     onGoogleMapCotrollerChanged: onGoogleMapController,
   );

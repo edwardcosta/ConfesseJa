@@ -1,5 +1,5 @@
 import 'package:confesseja/models/user.dart';
-import 'package:confesseja/screens/home/home_wrapper.dart';
+import 'package:confesseja/screens/main/home_wrapper.dart';
 import 'package:confesseja/screens/profile_chooser/profile_chooser.dart';
 import 'package:confesseja/utils/update_login.dart';
 import 'package:flutter/material.dart';

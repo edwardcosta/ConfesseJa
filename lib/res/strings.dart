@@ -30,20 +30,18 @@ class AppStrings {
   static const String REGISTER_PASSWORD_MATCH = "Senhas diferentes";
   static const String REGISTER_SIGNUP = "Cadastrar";
   static const String REGISTER_SIGNUP_ERROR = "Falha ao criar conta";
-  
-  static const String PROFILE_CHOOSER_LAITY = "Leigo";
-  static const String PROFILE_CHOOSER_CHURCH = "Igreja";
-  static const String PROFILE_CHOOSER_PRIEST = "Sacerdote";
 
-  static const String HOME_WELCOME = "Bem Vindo";
+  static const List<String> PROFILE_CHOOSER = ["Leigo","Igreja","Sacerdote"];
+
+  static const String WELCOME = "Bem Vindo";
 
   static const String COMPLETE_PROFILE_FULLNAME = "Nome completo";
   static const String COMPLETE_PROFILE_BIRTHDATE = "Data de nascimento";
   static const String COMPLETE_PROFILE_ORDERDATE = "Data de ordenação";
   static const String COMPLETE_PROFILE_ORDER = "Congregação de ordenação";
-
-  static const String PRIEST_COMPLETE_PROFILE = "Por favor, complete o seu perfil para validarmos seu perfil de " + PROFILE_CHOOSER_PRIEST;
-  static const String PRIEST_COMPLETE_PROFILE_TITLE = "Complete seu perfil";
-
-  static const String PERISH_COMPLETE_PROFILE = "Por favor, complete o seu perfil para validarmos seu perfil de " + PROFILE_CHOOSER_CHURCH;
+  static const String COMPLETE_PROFILE_TITLE = "Complete seu perfil";
+  static const String COMPLETE_PROFILE = "Por favor, nos dê mais informações para validarmos seu perfil";
+  static const String COMPLETE_PROFILE_PERISHNAME = "Nome da igreja";
+  static const String COMPLETE_PROFILE_ADDRESS = "Endereço";
+  static const String COMPLETE_PROFILE_PHONE = "Telefone";
 }
