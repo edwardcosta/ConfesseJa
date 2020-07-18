@@ -95,7 +95,7 @@ class _HomeMainState extends State<HomeMain> {
                       CameraPosition(
                           target: LatLng(
                               userLocation.latitude, userLocation.longitude),
-                          zoom: 15)));
+                          zoom: 15.0)));
                 },
               ),
             ),

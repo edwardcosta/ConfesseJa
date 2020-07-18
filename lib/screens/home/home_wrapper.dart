@@ -1,12 +1,12 @@
 import 'package:confesseja/models/user.dart';
-import 'package:confesseja/screens/home/home_admin.dart';
+import 'package:confesseja/screens/home/admin/home_admin.dart';
 import 'package:confesseja/screens/home/home_main.dart';
-import 'package:confesseja/screens/home/home_priest.dart';
+import 'package:confesseja/screens/home/priest/home_priest_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
-import 'home_perish.dart';
+import 'perish/home_perish.dart';
 
 class HomeWrapper extends StatefulWidget {
   @override
@@ -54,10 +54,10 @@ class _HomeWrapperState extends State<HomeWrapper> {
         widgetToReturn = HomePerish();
         break;
       case 2:
-        widgetToReturn = HomePriest();
+        widgetToReturn = HomePriestWrapper();
         break;
       case 42:
-        widgetToReturn = HomeMain();
+        widgetToReturn = HomeAdmin();
         break;
       default:
         widgetToReturn = HomeMain();

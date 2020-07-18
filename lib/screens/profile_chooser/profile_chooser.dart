@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:confesseja/res/server_values.dart';
 import 'package:confesseja/res/strings.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,9 +20,9 @@ class _ProfileChooserState extends State<ProfileChooser> {
 
     void _setAccountType() {
       Firestore.instance
-          .collection('users')
+          .collection(ServerValues.USERS_COLLECTION)
           .document(user.uid)
-          .setData({'account_type': currentPage,'admin': false}, merge: true);
+          .setData({'account_type': currentPage,'admin': false, 'profile_complete': 0}, merge: true);
     }
 
     return Stack(children: <Widget>[
@@ -89,7 +90,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                             height: 20.0,
                           ),
                           Text(
-                            AppStrings.PROFILE_CHOOSER_PARISH,
+                            AppStrings.PROFILE_CHOOSER_CHURCH,
                             style: AppStrings.TITLE_STYLE,
                           ),
                         ],

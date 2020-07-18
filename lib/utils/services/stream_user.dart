@@ -10,8 +10,9 @@ class StreamUser {
     return Firestore.instance.collection('users').document(firebaseUser.uid).snapshots().map((event) {
       if(event.exists && event.data != null){
         User user = User(accountType: event.data['account_type']);
-        if(event.data.containsKey('displayName')) user.displayName = event.data['displayName'];
-        if(event.data.containsKey('photoUrl')) user.photoUrl = event.data['photoUrl'];
+        if(event.data.containsKey('display_name')) user.displayName = event.data['display_name'];
+        if(event.data.containsKey('photo_url')) user.photoUrl = event.data['photo_url'];
+        if(event.data.containsKey('profile_step_confirmation')) user.profileStepConfirmation = event.data['profile_step_confirmation'];
         return user;
       } else {
         return null;

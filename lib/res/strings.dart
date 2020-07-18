@@ -32,8 +32,18 @@ class AppStrings {
   static const String REGISTER_SIGNUP_ERROR = "Falha ao criar conta";
   
   static const String PROFILE_CHOOSER_LAITY = "Leigo";
-  static const String PROFILE_CHOOSER_PARISH = "Paróquia";
+  static const String PROFILE_CHOOSER_CHURCH = "Igreja";
   static const String PROFILE_CHOOSER_PRIEST = "Sacerdote";
 
   static const String HOME_WELCOME = "Bem Vindo";
+
+  static const String COMPLETE_PROFILE_FULLNAME = "Nome completo";
+  static const String COMPLETE_PROFILE_BIRTHDATE = "Data de nascimento";
+  static const String COMPLETE_PROFILE_ORDERDATE = "Data de ordenação";
+  static const String COMPLETE_PROFILE_ORDER = "Congregação de ordenação";
+
+  static const String PRIEST_COMPLETE_PROFILE = "Por favor, complete o seu perfil para validarmos seu perfil de " + PROFILE_CHOOSER_PRIEST;
+  static const String PRIEST_COMPLETE_PROFILE_TITLE = "Complete seu perfil";
+
+  static const String PERISH_COMPLETE_PROFILE = "Por favor, complete o seu perfil para validarmos seu perfil de " + PROFILE_CHOOSER_CHURCH;
 }
