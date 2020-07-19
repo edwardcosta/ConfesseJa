@@ -22,7 +22,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
       Firestore.instance
           .collection(ServerValues.USERS_COLLECTION)
           .document(user.uid)
-          .setData({'account_type': currentPage,'admin': false, 'profile_complete': 0}, merge: true);
+          .setData({'account_type': currentPage.toInt(),'admin': false, 'profile_complete': 0}, merge: true);
     }
 
     return Stack(children: <Widget>[

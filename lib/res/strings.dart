@@ -31,7 +31,7 @@ class AppStrings {
   static const String REGISTER_SIGNUP = "Cadastrar";
   static const String REGISTER_SIGNUP_ERROR = "Falha ao criar conta";
 
-  static const List<String> PROFILE_CHOOSER = ["Leigo","Igreja","Sacerdote"];
+  static const List<String> PROFILE_CHOOSER = ["Penitente","Igreja","Confessor"];
 
   static const String WELCOME = "Bem Vindo";
 

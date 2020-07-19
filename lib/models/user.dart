@@ -1,5 +1,5 @@
 class User {
-  final double accountType;
+  final int accountType;
   String displayName;
   String photoUrl;
   int profileStepConfirmation;

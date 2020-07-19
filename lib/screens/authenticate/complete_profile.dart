@@ -79,7 +79,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
   List<Widget> _buildContent(User user, FirebaseUser firebaseUser) {
     List<Widget> toReturn = List();
     toReturn.add(Text(
-      AppStrings.PROFILE_CHOOSER[user.accountType.toInt()],
+      AppStrings.PROFILE_CHOOSER[user.accountType],
       style: Theme.of(context).textTheme.headline2,
     ));
     toReturn.add(Text(
@@ -96,7 +96,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
     toReturn.add(SizedBox(
       height: 20,
     ));
-    switch (user.accountType.toInt()) {
+    switch (user.accountType) {
       case 1:
         toReturn.add(Card(
           elevation: 2.0,
@@ -374,7 +374,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
     toReturn.add(SizedBox(
       height: 20.0,
     ));
-    switch (user.accountType.toInt()) {
+    switch (user.accountType) {
       case 1:
       toReturn.add(RaisedButton(
             child: Text('Enviar'),

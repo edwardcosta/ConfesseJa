@@ -3,6 +3,7 @@ import 'package:confesseja/screens/main/admin/home_admin.dart';
 import 'package:confesseja/screens/main/laity/home_main.dart';
 import 'package:confesseja/screens/main/perish/persih_wrapper.dart';
 import 'package:confesseja/screens/main/priest/priest_wrapper.dart';
+import 'package:confesseja/screens/profile_chooser/profile_chooser.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +48,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
     final user = Provider.of<User>(context);
     Widget widgetToReturn;
 
-    switch (user.accountType.toInt()) {
+    switch (user.accountType) {
       case 0:
         widgetToReturn = HomeMain();
         break;
@@ -61,7 +62,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
         widgetToReturn = HomeAdmin();
         break;
       default:
-        widgetToReturn = HomeMain();
+        widgetToReturn = ProfileChooser();
     }
 
     return StreamProvider<LocationData>.value(

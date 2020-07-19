@@ -27,15 +27,6 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             primaryColor: Color(0xFF2E2E2E),
             accentColor: Color(0xFFE8E8E8)),
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('pt', ''), // English, no country code
-          const Locale('en', ''), // Hebrew, no country code
-        ],
       ),
     );
   }
