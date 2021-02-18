@@ -55,7 +55,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                           ),
                           Text(
                             AppStrings.PROFILE_CHOOSER[0],
-                            style: AppStrings.TITLE_STYLE,
+                            style: Theme.of(context).textTheme.headline1,
                           ),
                         ],
                       ),
@@ -91,7 +91,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                           ),
                           Text(
                             AppStrings.PROFILE_CHOOSER[1],
-                            style: AppStrings.TITLE_STYLE,
+                            style: Theme.of(context).textTheme.headline1,
                           ),
                         ],
                       ),
@@ -127,7 +127,7 @@ class _ProfileChooserState extends State<ProfileChooser> {
                           ),
                           Text(
                             AppStrings.PROFILE_CHOOSER[2],
-                            style: AppStrings.TITLE_STYLE,
+                            style: Theme.of(context).textTheme.headline1,
                           ),
                         ],
                       ),

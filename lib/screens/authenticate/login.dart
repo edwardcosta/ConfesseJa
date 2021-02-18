@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Card(
-                    color: const Color(0xff1ECAD6),
+                    color: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -132,7 +132,7 @@ class _LoginState extends State<Login> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)
                               ),
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).buttonColor,
                               child: Text(
                                   AppStrings.REGISTER_LOGIN,
                                 style: Theme.of(context).textTheme.bodyText2,

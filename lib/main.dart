@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:confesseja/res/colors.dart';
 import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/screens/wrapper.dart';
 import 'package:confesseja/utils/services/auth.dart';
@@ -21,19 +22,26 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'KozukaGothicPro',
           textTheme: TextTheme(
-            headline1: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+            headline1: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
             bodyText1: TextStyle(color: Colors.white),
-            bodyText2: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            bodyText2:
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           brightness: Brightness.light,
-          primaryColor: Color(0xFF1ECAD6),
-          accentColor: Color(0xFF2858BE),
+          primaryColor: AppColors.ACCENT,
+          accentColor: AppColors.PRIMARY,
+          bottomAppBarColor: AppColors.MENU,
+          buttonColor: AppColors.BUTTON_1,
         ),
         darkTheme: ThemeData(
-            fontFamily: 'KozukaGothicPro',
-            brightness: Brightness.dark,
-            primaryColor: Color(0xFF2858BE),
-            accentColor: Color(0xFF1ECAD6)),
+          fontFamily: 'KozukaGothicPro',
+          brightness: Brightness.dark,
+          primaryColor: AppColors.PRIMARY,
+          accentColor: AppColors.ACCENT,
+          bottomAppBarColor: AppColors.MENU,
+          buttonColor: AppColors.BUTTON_1,
+        ),
       ),
     );
   }
