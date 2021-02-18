@@ -19,14 +19,21 @@ class MyApp extends StatelessWidget {
         title: AppStrings.APP_NAME,
         home: Wrapper(),
         theme: ThemeData(
+          fontFamily: 'KozukaGothicPro',
+          textTheme: TextTheme(
+            headline1: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+            bodyText1: TextStyle(color: Colors.white),
+            bodyText2: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
           brightness: Brightness.light,
-          primaryColor: Color(0xFFE8E8E8),
-          accentColor: Color(0xFF2E2E2E),
+          primaryColor: Color(0xFF1ECAD6),
+          accentColor: Color(0xFF2858BE),
         ),
         darkTheme: ThemeData(
+            fontFamily: 'KozukaGothicPro',
             brightness: Brightness.dark,
-            primaryColor: Color(0xFF2E2E2E),
-            accentColor: Color(0xFFE8E8E8)),
+            primaryColor: Color(0xFF2858BE),
+            accentColor: Color(0xFF1ECAD6)),
       ),
     );
   }

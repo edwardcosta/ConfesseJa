@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Confesse Já</string>
+    <string name="facebook_app_id">1379990025698760</string>
+    <string name="fb_login_protocol_scheme">fb1379990025698760</string>
+</resources>
