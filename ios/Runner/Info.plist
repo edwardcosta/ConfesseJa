@@ -45,5 +45,29 @@
 	<string>This app needs access to location when open.</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb1379990025698760</string>
+                <string>com.googleusercontent.apps.575426506184-knlqdg83d5i8aitj8v1p0mhmchd9d4g4</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>1379990025698760</string>
+    <key>FacebookDisplayName</key>
+    <string>Confesse Já</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
+    
 </dict>
 </plist>
