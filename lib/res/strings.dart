@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 class AppStrings {
   static const String APP_NAME = "Confesse já!";
 
-  static const String REGISTER_TITLE = "Faça seu Login\npara avançar";
+  static const String REGISTER_LOGIN_TITLE = "Faça seu Login\npara avançar";
+  static const String REGISTER_SIGNUP_TITLE = "Cadastre-se para\nacessar com email";
+  static const String REGISTER_PW_FORGOT_TITLE = "Insira seu email";
+  static const String REGISTER_PW_FORGOT_SEND = "Enviar";
   static const String REGISTER_EMAIL = "Email";
   static const String REGISTER_PASSWORD = "Senha";
   static const String REGISTER_RETYPE_PASSWORD = "Reescreva a senha";

@@ -22,6 +22,34 @@ class _LoginState extends State<Login> {
   String password = '';
   String error = '';
 
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      //barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Poxa'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Algum erro aconteceu :('),
+                Text('Tente novamente'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,7 +71,7 @@ class _LoginState extends State<Login> {
               top: 102,
               child: Center(
                   child: Text(
-                AppStrings.REGISTER_TITLE,
+                AppStrings.REGISTER_LOGIN_TITLE,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline1,
               )),
@@ -145,15 +173,11 @@ class _LoginState extends State<Login> {
                                 ),
                                 padding: const EdgeInsets.all(4.0),
                                 onPressed: () async {
-                                  print(email);
-                                  print(password);
                                   if (_formKey.currentState.validate()) {
-                                    dynamic result = _auth.login(
+                                    dynamic result = await _auth.loginEmail(
                                         email.trim(), password.trim());
                                     if (result == null) {
-                                      setState(() {
-                                        error = AppStrings.REGISTER_LOGIN_ERROR;
-                                      });
+                                      _showMyDialog();
                                     }
                                   }
                                 },
@@ -165,21 +189,27 @@ class _LoginState extends State<Login> {
                               SignInButton(
                                 Buttons.Facebook,
                                 text: AppStrings.REGISTER_FACEBOOK_BUTTON,
-                                onPressed: () {},
+                                onPressed: () async {
+                                  dynamic result = await _auth.loginFacebook();
+                                  if (result == null) {
+                                    _showMyDialog();
+                                  }
+                                },
                               ),
                               SignInButton(
                                 Buttons.Google,
                                 text: AppStrings.REGISTER_GOOGLE_BUTTON,
-                                onPressed: () {},
+                                onPressed: () async {
+                                  dynamic result = await _auth.loginGoogle();
+                                  if (result == null) {
+                                    _showMyDialog();
+                                  }
+                                },
                               )
                             ],
                           ),
                         ),
                       ),
-                    ),
-                    Text(
-                      error,
-                      style: TextStyle(color: Colors.red),
                     ),
                   ],
                 ),
@@ -207,7 +237,7 @@ class _LoginState extends State<Login> {
                             )
                           ]),
                       onPressed: () {
-                        widget.toggleView();
+                        widget.toggleView(1);
                       },
                     ),
                     FlatButton(
@@ -215,7 +245,9 @@ class _LoginState extends State<Login> {
                         AppStrings.REGISTER_PASSWORD_FORGOT,
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.toggleView(2);
+                      },
                     ),
                   ],
                 ),
