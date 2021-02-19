@@ -35,6 +35,7 @@ dependencies:
   firebase_auth_web: ^0.1.3+1
   flutter_facebook_auth: ^2.0.1
   google_sign_in: ^4.5.9
+  flutter_signin_button: ^1.1.0
   cloud_firestore: ^0.13.6
   flutter_google_maps: ^3.7.1
   location: ^3.0.2
@@ -46,8 +47,17 @@ dependencies:
   dots_indicator: ^1.1.0
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.8.0"
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_ios: "assets/launcher/icon.png"
+  image_path_android: "assets/launcher/icon.png"
+  adaptative_icon_background: "assets/launcher/icon_background.png"
+  adaptative_icon_foreground: "assets/launcher/icon_foreground.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -79,7 +89,7 @@ flutter:
   fonts:
     - family: KozukaGothicPro
       fonts:
-        - asset: fonts/kozuka-gothic-pro-h.ttf
+        - asset: fonts/kozuka-gothic-pro-h.otf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

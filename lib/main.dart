@@ -32,16 +32,27 @@ class MyApp extends StatelessWidget {
           primaryColor: AppColors.ACCENT,
           accentColor: AppColors.PRIMARY,
           bottomAppBarColor: AppColors.MENU,
-          buttonColor: AppColors.BUTTON_1,
+          cardColor: AppColors.ACCENT,
+          buttonTheme: ButtonThemeData(
+            buttonColor: AppColors.BUTTON_1,
+            textTheme: ButtonTextTheme.primary
+          )
         ),
-        darkTheme: ThemeData(
+        /*darkTheme: ThemeData(
           fontFamily: 'KozukaGothicPro',
+          textTheme: TextTheme(
+            headline1: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+            bodyText1: TextStyle(color: Colors.white),
+            bodyText2:
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
           brightness: Brightness.dark,
           primaryColor: AppColors.PRIMARY,
           accentColor: AppColors.ACCENT,
           bottomAppBarColor: AppColors.MENU,
           buttonColor: AppColors.BUTTON_1,
-        ),
+        ),*/
       ),
     );
   }

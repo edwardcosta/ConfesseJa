@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AppStrings {
   static const String APP_NAME = "Confesse já!";
 
+  static const String REGISTER_TITLE = "Faça seu Login\npara avançar";
   static const String REGISTER_EMAIL = "Email";
   static const String REGISTER_PASSWORD = "Senha";
   static const String REGISTER_RETYPE_PASSWORD = "Reescreva a senha";
@@ -23,6 +24,8 @@ class AppStrings {
   static const String REGISTER_PASSWORD_MATCH = "Senhas diferentes";
   static const String REGISTER_SIGNUP = "Cadastrar";
   static const String REGISTER_SIGNUP_ERROR = "Falha ao criar conta";
+  static const String REGISTER_FACEBOOK_BUTTON = "Login com Facebook";
+  static const String REGISTER_GOOGLE_BUTTON = "Login com Google";
 
   static const List<String> PROFILE_CHOOSER = ["Penitente","Igreja","Confessor"];
 
