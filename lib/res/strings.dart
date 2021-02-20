@@ -30,7 +30,7 @@ class AppStrings {
   static const String REGISTER_FACEBOOK_BUTTON = "Login com Facebook";
   static const String REGISTER_GOOGLE_BUTTON = "Login com Google";
 
-  static const List<String> PROFILE_CHOOSER = ["Penitente","Igreja","Confessor"];
+  static const List<String> PROFILE_CHOOSER = ["Penitente","Confessor","Igreja"];
 
   static const String WELCOME = "Bem Vindo";
 

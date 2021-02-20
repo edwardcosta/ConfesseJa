@@ -1,161 +1,194 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:confesseja/res/confesseja_icon_icons.dart';
 import 'package:confesseja/res/server_values.dart';
 import 'package:confesseja/res/strings.dart';
+import 'package:confesseja/utils/services/auth.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProfileChooser extends StatefulWidget {
-  @override
-  _ProfileChooserState createState() => _ProfileChooserState();
-}
+class ProfileChooser extends StatelessWidget {
+  final AuthService _auth = AuthService();
 
-class _ProfileChooserState extends State<ProfileChooser> {
-  double currentPage = 0;
+  Future<void> _showMyDialog(context) async {
+    return showDialog<void>(
+      context: context,
+      //barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Sair'),
+          content: Text('Deseja realmente sair do aplicativo?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Sim'),
+              onPressed: () {
+                Navigator.pop(context);
+                _auth.logout();
+              },
+            ),
+            TextButton(
+              child: Text('Não'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
 
-    void _setAccountType() {
+    void _setAccountType(int type) {
       Firestore.instance
           .collection(ServerValues.USERS_COLLECTION)
           .document(user.uid)
-          .setData({'account_type': currentPage.toInt(),'admin': false, 'profile_complete': 0}, merge: true);
+          .setData(
+              {'account_type': type, 'admin': false, 'profile_complete': 0},
+              merge: true);
     }
 
-    return Stack(children: <Widget>[
-      PageView(
-        controller: PageController(),
-        children: [
-          Scaffold(
-            body: Center(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
-                child: GestureDetector(
-                  onTap: () {
-                    _setAccountType();
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32),
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+            Theme.of(context).accentColor,
+            Theme.of(context).primaryColor
+          ])),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Stack(
+            children: <Widget>[
+              Positioned(
+                  top: MediaQuery.of(context).padding.top,
+                  child: TextButton(
+                    child: Text(
+                      'Sair',
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 20.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/laity.png'),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Text(
-                            AppStrings.PROFILE_CHOOSER[0],
-                            style: Theme.of(context).textTheme.headline1,
-                          ),
-                        ],
+                    onPressed: () {
+                      _showMyDialog(context);
+                    },
+                  )),
+              Center(
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: 500),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        "Quem sou?",
+                        style: Theme.of(context).textTheme.headline1,
                       ),
-                    ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 20.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              RaisedButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      ConfessejaIcon.penitente,
+                                      size: 38,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        AppStrings.PROFILE_CHOOSER[0]
+                                            .toUpperCase(),
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () {
+                                  _setAccountType(0);
+                                },
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              RaisedButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      ConfessejaIcon.confessor,
+                                      size: 38,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        AppStrings.PROFILE_CHOOSER[1]
+                                            .toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {
+                                  _setAccountType(2);
+                                },
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              RaisedButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      ConfessejaIcon.igreja,
+                                      size: 38,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        AppStrings.PROFILE_CHOOSER[2]
+                                            .toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {
+                                  _setAccountType(1);
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
-              ),
-            ),
-          ),
-          Scaffold(
-            body: Center(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
-                child: GestureDetector(
-                  onTap: () {
-                    _setAccountType();
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 20.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/church.png'),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Text(
-                            AppStrings.PROFILE_CHOOSER[1],
-                            style: Theme.of(context).textTheme.headline1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Scaffold(
-            body: Center(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
-                child: GestureDetector(
-                  onTap: () {
-                    _setAccountType();
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 20.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/priest.png'),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Text(
-                            AppStrings.PROFILE_CHOOSER[2],
-                            style: Theme.of(context).textTheme.headline1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-        onPageChanged: (val) {
-          setState(() {
-            currentPage = val.toDouble();
-          });
-        },
-      ),
-      Padding(
-          padding: EdgeInsets.only(bottom: 60.0),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: DotsIndicator(
-              dotsCount: 3,
-              position: currentPage,
-              decorator: DotsDecorator(
-                  color: Theme.of(context).primaryColor,
-                  activeColor: Theme.of(context).accentColor),
-            ),
+              )
+            ],
           )),
-    ]);
+    );
   }
 }

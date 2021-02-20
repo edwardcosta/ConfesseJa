@@ -6,9 +6,22 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final CollectionReference _userDbReference = Firestore.instance.collection(ServerValues.USERS_COLLECTION);
 
   Stream<FirebaseUser> get firebaseUser {
     return _auth.onAuthStateChanged;
+  }
+
+  Future<bool> _verifyIfUserHasAccount(FirebaseUser user) async {
+    DocumentSnapshot userDocument = await _userDbReference.document(user.uid).get();
+    return userDocument.exists;
+  }
+
+  void _uploadUserToDb(FirebaseUser user) {
+    _userDbReference.document(user.uid).setData({
+      'profile_step_confirmation': 0,
+      'created_at': DateTime.now().toIso8601String()
+    },merge: true);
   }
 
   Future registerWithEmailAndPassword(String email, String password) async {
@@ -16,14 +29,15 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
-      Firestore.instance
-          .collection(ServerValues.USERS_COLLECTION)
-          .document(user.uid)
-          .setData({
-        'profile_step_confirmation': 0,
-        'created_at': DateTime.now().toIso8601String()
-      }, merge: true);
+      _uploadUserToDb(user);
       return user;
+    } on AuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+      return null;
     } catch (e) {
       print(e.toString());
       return null;
@@ -52,11 +66,14 @@ class AuthService {
 
       // Create a credential from the access token
       final AuthCredential credential =
-          FacebookAuthProvider.getCredential(accessToken: accessToken.token);
+      FacebookAuthProvider.getCredential(accessToken: accessToken.token);
       // Once signed in, return the UserCredential
       AuthResult result = await _auth.signInWithCredential(credential);
       FirebaseUser user = result.user;
       if (user != null) {
+        if(!(await _verifyIfUserHasAccount(user))){
+          _uploadUserToDb(user);
+        }
         return user;
       } else {
         return null;
@@ -78,7 +95,7 @@ class AuthService {
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      await googleUser.authentication;
 
       // Create a new credential
       final AuthCredential credential = GoogleAuthProvider.getCredential(
@@ -90,6 +107,9 @@ class AuthService {
       AuthResult result = await _auth.signInWithCredential(credential);
       FirebaseUser user = result.user;
       if (user != null) {
+        if(!(await _verifyIfUserHasAccount(user))){
+          _uploadUserToDb(user);
+        }
         return user;
       } else {
         return null;

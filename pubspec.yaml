@@ -90,6 +90,9 @@ flutter:
     - family: KozukaGothicPro
       fonts:
         - asset: fonts/kozuka-gothic-pro-h.otf
+    - family:  ConfessejaIcon
+      fonts:
+        - asset: fonts/ConfessejaIcon.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

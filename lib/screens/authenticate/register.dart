@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
+
   Register({this.toggleView});
 
   @override
@@ -18,11 +19,25 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String retypedPassword = '';
+  bool _obscurePassword = true;
+  bool _obscureRPassword = true;
 
   final RegExp hasUppercase = new RegExp('[A-Z]');
   final RegExp hasLowercase = new RegExp('[a-z]');
   final RegExp hasNumber = new RegExp('[0-9]');
   final RegExp hasSymbol = new RegExp('[!@#\$&*~]');
+
+  void _togglePassword() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
+
+  void _toggleRPassword() {
+    setState(() {
+      _obscureRPassword = !_obscureRPassword;
+    });
+  }
 
   Future<void> _showMyDialog() async {
     return showDialog<void>(
@@ -65,16 +80,18 @@ class _RegisterState extends State<Register> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Theme.of(context).accentColor,
-                  Theme.of(context).primaryColor
-                ])),
+              Theme.of(context).accentColor,
+              Theme.of(context).primaryColor
+            ])),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Stack(children: <Widget>[
             Positioned(
               top: MediaQuery.of(context).padding.top,
               child: IconButton(
-                  icon: Icon(Icons.arrow_back,),
+                  icon: Icon(
+                    Icons.arrow_back,
+                  ),
                   onPressed: () {
                     widget.toggleView(0);
                   }),
@@ -85,10 +102,10 @@ class _RegisterState extends State<Register> {
               top: 102,
               child: Center(
                   child: Text(
-                    AppStrings.REGISTER_SIGNUP_TITLE,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline1,
-                  )),
+                AppStrings.REGISTER_SIGNUP_TITLE,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline1,
+              )),
             ),
             Center(
               child: Container(
@@ -102,8 +119,8 @@ class _RegisterState extends State<Register> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 20.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -117,7 +134,8 @@ class _RegisterState extends State<Register> {
                                 ),
                                 child: TextFormField(
                                   validator: (val) {
-                                    if (val.isEmpty) return AppStrings.REGISTER_EMPTY;
+                                    if (val.isEmpty)
+                                      return AppStrings.REGISTER_EMPTY;
                                     if (!EmailValidator.validate(val))
                                       return AppStrings.REGISTER_INVALID_EMAIL;
                                     return null;
@@ -130,7 +148,10 @@ class _RegisterState extends State<Register> {
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
                                     contentPadding: EdgeInsets.only(
-                                        left: 15, bottom: 11, top: 11, right: 15),
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 15),
                                   ),
                                   onChanged: (val) {
                                     setState(() {
@@ -146,30 +167,43 @@ class _RegisterState extends State<Register> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: TextFormField(
-                                  obscureText: true,
+                                  obscureText: _obscurePassword,
                                   validator: (val) {
-                                    if (val.isEmpty) return AppStrings.REGISTER_EMPTY;
+                                    if (val.isEmpty)
+                                      return AppStrings.REGISTER_EMPTY;
                                     if (val.length < 6)
-                                      return AppStrings.REGISTER_PASSWORD_LENGTH;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_LENGTH;
                                     if (!hasUppercase.hasMatch(val))
-                                      return AppStrings.REGISTER_PASSWORD_UPPERCASE;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_UPPERCASE;
                                     if (!hasLowercase.hasMatch(val))
-                                      return AppStrings.REGISTER_PASSWORD_LOWERCASE;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_LOWERCASE;
                                     if (!hasNumber.hasMatch(val))
-                                      return AppStrings.REGISTER_PASSWORD_NUMBER;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_NUMBER;
                                     if (!hasSymbol.hasMatch(val))
-                                      return AppStrings.REGISTER_PASSWORD_SYMBOL;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_SYMBOL;
                                     return null;
                                   },
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                     labelText: AppStrings.REGISTER_PASSWORD,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(Icons.remove_red_eye),
+                                      onPressed: _togglePassword,
+                                    ),
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
                                     contentPadding: EdgeInsets.only(
-                                        left: 15, bottom: 11, top: 11, right: 15),
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 15),
                                   ),
                                   onChanged: (val) {
                                     setState(() {
@@ -185,31 +219,46 @@ class _RegisterState extends State<Register> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: TextFormField(
-                                  obscureText: true,
+                                  obscureText: _obscureRPassword,
                                   validator: (val) {
-                                    if (val.isEmpty) return AppStrings.REGISTER_EMPTY;
-                                    if (val != password) return AppStrings.REGISTER_PASSWORD_MATCH;
+                                    if (val.isEmpty)
+                                      return AppStrings.REGISTER_EMPTY;
+                                    if (val != password)
+                                      return AppStrings.REGISTER_PASSWORD_MATCH;
                                     if (val.length < 6)
-                                      return AppStrings.REGISTER_PASSWORD_LENGTH;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_LENGTH;
                                     if (!hasUppercase.hasMatch(val))
-                                      return AppStrings.REGISTER_PASSWORD_UPPERCASE;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_UPPERCASE;
                                     if (!hasLowercase.hasMatch(val))
-                                      return AppStrings.REGISTER_PASSWORD_LOWERCASE;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_LOWERCASE;
                                     if (!hasNumber.hasMatch(val))
-                                      return AppStrings.REGISTER_PASSWORD_NUMBER;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_NUMBER;
                                     if (!hasSymbol.hasMatch(val))
-                                      return AppStrings.REGISTER_PASSWORD_SYMBOL;
+                                      return AppStrings
+                                          .REGISTER_PASSWORD_SYMBOL;
                                     return null;
                                   },
                                   decoration: new InputDecoration(
                                     border: InputBorder.none,
-                                    labelText: AppStrings.REGISTER_RETYPE_PASSWORD,
+                                    labelText:
+                                        AppStrings.REGISTER_RETYPE_PASSWORD,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(Icons.remove_red_eye),
+                                      onPressed: _toggleRPassword,
+                                    ),
                                     contentPadding: EdgeInsets.only(
-                                        left: 15, bottom: 11, top: 11, right: 15),
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 15),
                                   ),
                                   onChanged: (val) {
                                     setState(() {
@@ -224,10 +273,10 @@ class _RegisterState extends State<Register> {
                                 ),
                                 onPressed: () async {
                                   if (_formKey.currentState.validate()) {
-                                    dynamic result =
-                                        await _auth.registerWithEmailAndPassword(
+                                    dynamic result = await _auth
+                                        .registerWithEmailAndPassword(
                                             email.trim(), password.trim());
-                                    if(result == null){
+                                    if (result == null) {
                                       _showMyDialog();
                                     }
                                   }
