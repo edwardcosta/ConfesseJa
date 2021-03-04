@@ -33,6 +33,8 @@ class AppStrings {
   static const List<String> PROFILE_CHOOSER = ["Penitente","Confessor","Igreja"];
 
   static const String WELCOME = "Bem Vindo";
+  static const String YES = "Sim";
+  static const String NO = "Não";
 
   static const String COMPLETE_PROFILE_FULLNAME = "Nome completo";
   static const String COMPLETE_PROFILE_BIRTHDATE = "Data de nascimento";

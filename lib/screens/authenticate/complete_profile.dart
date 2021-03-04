@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:confesseja/models/user.dart';
-import 'package:confesseja/res/server_values.dart';
+import 'package:confesseja/utils/services/db.dart';
 import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:email_validator/email_validator.dart';
@@ -30,6 +29,34 @@ class _CompleteProfileState extends State<CompleteProfile> {
   TextEditingController orderdateTextEditingController =
       TextEditingController();
 
+  Future<void> _showMyDialog(context) async {
+    return showDialog<void>(
+      context: context,
+      //barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Sair'),
+          content: Text('Deseja realmente sair do aplicativo?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppStrings.YES),
+              onPressed: () {
+                Navigator.pop(context);
+                _auth.logout();
+              },
+            ),
+            TextButton(
+              child: Text(AppStrings.NO),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   Future<DateTime> _selectDate(
       BuildContext context, DateTime selectedDate) async {
     if (selectedDate == null) selectedDate = DateTime.now();
@@ -47,31 +74,43 @@ class _CompleteProfileState extends State<CompleteProfile> {
   Widget build(BuildContext context) {
     final firebaseUser = Provider.of<FirebaseUser>(context);
     final user = Provider.of<User>(context);
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[Positioned(
-          top: MediaQuery.of(context).padding.top,
-          child: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                _auth.logout();
-              }),
-        ),
-          Center(
-            child: SingleChildScrollView(
-              child: Container(
-                constraints: BoxConstraints(maxWidth: 500),
-                padding: EdgeInsets.all(20.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: _buildContent(user, firebaseUser)),
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+            Theme.of(context).accentColor,
+            Theme.of(context).primaryColor
+          ])),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: <Widget>[
+            Positioned(
+              top: MediaQuery.of(context).padding.top,
+              child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    _showMyDialog(context);
+                  }),
+            ),
+            Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: 500),
+                  padding: EdgeInsets.all(20.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: _buildContent(user, firebaseUser)),
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -376,28 +415,12 @@ class _CompleteProfileState extends State<CompleteProfile> {
     ));
     switch (user.accountType) {
       case 1:
-      toReturn.add(RaisedButton(
+        toReturn.add(RaisedButton(
             child: Text('Enviar'),
             onPressed: () {
               if (_formKey.currentState.validate()) {
-                Firestore.instance
-                    .collection(ServerValues.PROFILE_TO_CONFIRM_COLLECTION)
-                    .document(firebaseUser.uid)
-                    .setData({
-                  'account': firebaseUser.uid,
-                  'date': DateTime.now().toIso8601String()
-                }, merge: true).whenComplete(() {
-                  Firestore.instance
-                      .collection(ServerValues.USERS_COLLECTION)
-                      .document(firebaseUser.uid)
-                      .setData({
-                    'name': name,
-                    'address': address,
-                    'phone': phone,
-                    'email': email,
-                    'profile_step_confirmation': 1
-                  }, merge: true);
-                });
+                Db.service.sendIgrejaProfileToConfirmation(
+                    firebaseUser, name, address, phone, email);
               }
             }));
         break;
@@ -408,25 +431,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
               if (_formKey.currentState.validate() &&
                   birthdate != null &&
                   orderdate != null) {
-                Firestore.instance
-                    .collection(ServerValues.PROFILE_TO_CONFIRM_COLLECTION)
-                    .document(firebaseUser.uid)
-                    .setData({
-                  'account': firebaseUser.uid,
-                  'date': DateTime.now().toIso8601String()
-                }, merge: true).whenComplete(() {
-                  Firestore.instance
-                      .collection(ServerValues.USERS_COLLECTION)
-                      .document(firebaseUser.uid)
-                      .setData({
-                    'fullname': name,
-                    'birthdate': birthdate.toIso8601String(),
-                    'orderdate': orderdate.toIso8601String(),
-                    'order': order,
-                    'email': email,
-                    'profile_step_confirmation': 1
-                  }, merge: true);
-                });
+                Db.service.sendConfessorProfileToConfirmation(
+                    firebaseUser, name, birthdate, orderdate, order, email);
               }
             }));
         break;

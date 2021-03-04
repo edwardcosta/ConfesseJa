@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           primaryColor: AppColors.ACCENT,
           accentColor: AppColors.PRIMARY,
           bottomAppBarColor: AppColors.MENU,
+          backgroundColor: Colors.transparent,
           cardColor: AppColors.ACCENT,
           iconTheme: IconThemeData(
             color: Colors.white

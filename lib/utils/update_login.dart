@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:confesseja/res/server_values.dart';
+import 'file:///D:/OneDrive/Documentos/GIT/ConfesseJa/lib/utils/services/db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,7 @@ class UpdateLoginInformation {
     if (_run) {
       final FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
       final DocumentReference userField = Firestore.instance
-          .collection(ServerValues.USERS_COLLECTION)
+          .collection(Db.values.userCollection.collection_reference)
           .document(firebaseUser.uid);
       userField.snapshots().first.then((value) {
         if (value.exists && value.data != null) {

@@ -1,27 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:confesseja/res/server_values.dart';
+import 'file:///D:/OneDrive/Documentos/GIT/ConfesseJa/lib/utils/services/db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final CollectionReference _userDbReference = Firestore.instance.collection(ServerValues.USERS_COLLECTION);
+  final CollectionReference _userDbReference = Firestore.instance.collection(Db.values.userCollection.collection_reference);
 
   Stream<FirebaseUser> get firebaseUser {
     return _auth.onAuthStateChanged;
   }
 
   Future<bool> _verifyIfUserHasAccount(FirebaseUser user) async {
-    DocumentSnapshot userDocument = await _userDbReference.document(user.uid).get();
+    DocumentSnapshot userDocument = await Db.service.getUser(user);
     return userDocument.exists;
-  }
-
-  void _uploadUserToDb(FirebaseUser user) {
-    _userDbReference.document(user.uid).setData({
-      'profile_step_confirmation': 0,
-      'created_at': DateTime.now().toIso8601String()
-    },merge: true);
   }
 
   Future registerWithEmailAndPassword(String email, String password) async {
@@ -29,7 +22,7 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
-      _uploadUserToDb(user);
+      Db.service.uploadUserToDb(user);
       return user;
     } on AuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -72,7 +65,7 @@ class AuthService {
       FirebaseUser user = result.user;
       if (user != null) {
         if(!(await _verifyIfUserHasAccount(user))){
-          _uploadUserToDb(user);
+          Db.service.uploadUserToDb(user);
         }
         return user;
       } else {
@@ -108,7 +101,7 @@ class AuthService {
       FirebaseUser user = result.user;
       if (user != null) {
         if(!(await _verifyIfUserHasAccount(user))){
-          _uploadUserToDb(user);
+          Db.service.uploadUserToDb(user);
         }
         return user;
       } else {

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:confesseja/res/confesseja_icon_icons.dart';
-import 'package:confesseja/res/server_values.dart';
+import 'file:///D:/OneDrive/Documentos/GIT/ConfesseJa/lib/utils/services/db.dart';
 import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/utils/services/auth.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -21,14 +21,14 @@ class ProfileChooser extends StatelessWidget {
           content: Text('Deseja realmente sair do aplicativo?'),
           actions: <Widget>[
             TextButton(
-              child: Text('Sim'),
+              child: Text(AppStrings.YES),
               onPressed: () {
                 Navigator.pop(context);
                 _auth.logout();
               },
             ),
             TextButton(
-              child: Text('Não'),
+              child: Text(AppStrings.NO),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -45,7 +45,7 @@ class ProfileChooser extends StatelessWidget {
 
     void _setAccountType(int type) {
       Firestore.instance
-          .collection(ServerValues.USERS_COLLECTION)
+          .collection(Db.values.userCollection.collection_reference)
           .document(user.uid)
           .setData(
               {'account_type': type, 'admin': false, 'profile_complete': 0},
