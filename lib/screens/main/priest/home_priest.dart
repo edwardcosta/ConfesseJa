@@ -14,9 +14,11 @@ class _HomePriestState extends State<HomePriest> {
       body: Stack(
         children: <Widget>[
           Center(
-            child: RaisedButton(child: Text('Sair'), onPressed: () {
-              _auth.logout();
-            }),
+            child: ElevatedButton(
+                child: Text('Sair'),
+                onPressed: () {
+                  _auth.logout();
+                }),
           ),
         ],
       ),

@@ -116,7 +116,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
   }
 
   List<Widget> _buildContent(User user, FirebaseUser firebaseUser) {
-    List<Widget> toReturn = List();
+    List<Widget> toReturn = [];
     toReturn.add(Text(
       AppStrings.PROFILE_CHOOSER[user.accountType],
       style: Theme.of(context).textTheme.headline2,
@@ -136,7 +136,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
       height: 20,
     ));
     switch (user.accountType) {
-      case 1:
+      case 1: //IGREJA
         toReturn.add(Card(
           elevation: 2.0,
           shape: RoundedRectangleBorder(
@@ -225,7 +225,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
           ),
         ));
         break;
-      case 2:
+      case 2: // CONFESSOR
         toReturn.add(Card(
           elevation: 2.0,
           shape: RoundedRectangleBorder(
@@ -415,7 +415,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
     ));
     switch (user.accountType) {
       case 1:
-        toReturn.add(RaisedButton(
+        toReturn.add(ElevatedButton(
             child: Text('Enviar'),
             onPressed: () {
               if (_formKey.currentState.validate()) {
@@ -425,7 +425,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
             }));
         break;
       case 2:
-        toReturn.add(RaisedButton(
+        toReturn.add(ElevatedButton(
             child: Text('Enviar'),
             onPressed: () {
               if (_formKey.currentState.validate() &&

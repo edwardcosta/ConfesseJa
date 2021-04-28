@@ -14,9 +14,11 @@ class _HomeAdminState extends State<HomeAdmin> {
       body: Stack(
         children: <Widget>[
           Center(
-            child: RaisedButton(child: Text('Sair'), onPressed: () {
-              _auth.logout();
-            }),
+            child: ElevatedButton(
+                child: Text('Sair'),
+                onPressed: () {
+                  _auth.logout();
+                }),
           ),
         ],
       ),

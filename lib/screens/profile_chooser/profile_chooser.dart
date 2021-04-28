@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:confesseja/res/confesseja_icon_icons.dart';
-import 'file:///D:/OneDrive/Documentos/GIT/ConfesseJa/lib/utils/services/db.dart';
+import 'package:confesseja/utils/services/db.dart';
 import 'package:confesseja/res/strings.dart';
 import 'package:confesseja/utils/services/auth.dart';
-import 'package:dots_indicator/dots_indicator.dart';
+//import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +45,7 @@ class ProfileChooser extends StatelessWidget {
 
     void _setAccountType(int type) {
       Firestore.instance
-          .collection(Db.values.userCollection.collection_reference)
+          .collection(Db.values.userCollection.collectionReference)
           .document(user.uid)
           .setData(
               {'account_type': type, 'admin': false, 'profile_complete': 0},
@@ -98,9 +98,9 @@ class ProfileChooser extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              RaisedButton(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 16),
+                              ElevatedButton(
+                                //padding: EdgeInsets.symmetric(
+                                //    vertical: 8, horizontal: 16),
                                 child: Row(
                                   children: [
                                     Icon(
@@ -109,7 +109,8 @@ class ProfileChooser extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        AppStrings.PROFILE_CHOOSER[0]
+                                        AppStrings.PROFILE_CHOOSER[
+                                                Db.values.accountType.penitente]
                                             .toUpperCase(),
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
@@ -120,15 +121,16 @@ class ProfileChooser extends StatelessWidget {
                                   ],
                                 ),
                                 onPressed: () {
-                                  _setAccountType(0);
+                                  _setAccountType(
+                                      Db.values.accountType.penitente);
                                 },
                               ),
                               SizedBox(
                                 height: 16,
                               ),
-                              RaisedButton(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 16),
+                              ElevatedButton(
+                                //padding: EdgeInsets.symmetric(
+                                //    vertical: 8, horizontal: 16),
                                 child: Row(
                                   children: [
                                     Icon(
@@ -137,7 +139,8 @@ class ProfileChooser extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        AppStrings.PROFILE_CHOOSER[1]
+                                        AppStrings.PROFILE_CHOOSER[
+                                                Db.values.accountType.confessor]
                                             .toUpperCase(),
                                         style: Theme.of(context)
                                             .textTheme
@@ -148,15 +151,16 @@ class ProfileChooser extends StatelessWidget {
                                   ],
                                 ),
                                 onPressed: () {
-                                  _setAccountType(2);
+                                  _setAccountType(
+                                      Db.values.accountType.confessor);
                                 },
                               ),
                               SizedBox(
                                 height: 16,
                               ),
-                              RaisedButton(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 16),
+                              ElevatedButton(
+                                //padding: EdgeInsets.symmetric(
+                                //    vertical: 8, horizontal: 16),
                                 child: Row(
                                   children: [
                                     Icon(
@@ -165,7 +169,8 @@ class ProfileChooser extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        AppStrings.PROFILE_CHOOSER[2]
+                                        AppStrings.PROFILE_CHOOSER[
+                                                Db.values.accountType.igreja]
                                             .toUpperCase(),
                                         style: Theme.of(context)
                                             .textTheme
@@ -176,7 +181,7 @@ class ProfileChooser extends StatelessWidget {
                                   ],
                                 ),
                                 onPressed: () {
-                                  _setAccountType(1);
+                                  _setAccountType(Db.values.accountType.igreja);
                                 },
                               )
                             ],

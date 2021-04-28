@@ -163,15 +163,15 @@ class _LoginState extends State<Login> {
                                   },
                                 ),
                               ),
-                              RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
+                              ElevatedButton(
+                                //shape: RoundedRectangleBorder(
+                                //    borderRadius: BorderRadius.circular(8)),
                                 //color: Theme.of(context).buttonColor,
                                 child: Text(
                                   AppStrings.REGISTER_LOGIN,
                                   style: Theme.of(context).textTheme.bodyText2,
                                 ),
-                                padding: const EdgeInsets.all(4.0),
+                                //padding: const EdgeInsets.all(4.0),
                                 onPressed: () async {
                                   if (_formKey.currentState.validate()) {
                                     dynamic result = await _auth.loginEmail(
@@ -205,7 +205,17 @@ class _LoginState extends State<Login> {
                                     _showMyDialog();
                                   }
                                 },
-                              )
+                              ),
+                              SignInButton(
+                                Buttons.Apple,
+                                text: AppStrings.REGISTER_APPLE_BUTTON,
+                                onPressed: () async {
+                                  dynamic result = await _auth.loginGoogle();
+                                  if (result == null) {
+                                    _showMyDialog();
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -222,7 +232,7 @@ class _LoginState extends State<Login> {
               child: Center(
                 child: Column(
                   children: [
-                    FlatButton(
+                    TextButton(
                       child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -240,10 +250,11 @@ class _LoginState extends State<Login> {
                         widget.toggleView(1);
                       },
                     ),
-                    FlatButton(
+                    TextButton(
                       child: Text(
                         AppStrings.REGISTER_PASSWORD_FORGOT,
                         style: Theme.of(context).textTheme.bodyText1,
+                        textAlign: TextAlign.center,
                       ),
                       onPressed: () {
                         widget.toggleView(2);

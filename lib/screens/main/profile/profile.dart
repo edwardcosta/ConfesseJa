@@ -41,12 +41,12 @@ class Profile extends StatelessWidget {
           ),
         ),
         Center(
-          child: RaisedButton(
+          child: ElevatedButton(
               child: Text(
                 'Sair',
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),
-              color: Theme.of(context).accentColor,
+              //color: Theme.of(context).accentColor,
               onPressed: () async {
                 await _auth.logout();
                 Navigator.of(context).pop();

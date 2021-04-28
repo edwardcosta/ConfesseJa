@@ -10,16 +10,16 @@ class Service {
   const Service();
 
   static final CollectionReference _users = Firestore.instance
-      .collection(Db.values.userCollection.collection_reference);
+      .collection(Db.values.userCollection.collectionReference);
   static final CollectionReference _profileToConfirm = Firestore.instance
-      .collection(Db.values.profileToConfirmCollection.collection_reference);
+      .collection(Db.values.profileToConfirmCollection.collectionReference);
 
   void uploadUserToDb(FirebaseUser user) {
     _users.document(user.uid).setData({
-      Db.values.userCollection.profile_step_confirmation_field:
-      Db.values.profileStepConfirmation.incompleto,
-      Db.values.userCollection.creation_date_field:
-      DateTime.now().toIso8601String()
+      Db.values.userCollection.profileStepConfirmationField:
+          Db.values.profileStepConfirmation.incompleto,
+      Db.values.userCollection.creationDateField:
+          DateTime.now().toIso8601String()
     }, merge: true);
   }
 
@@ -30,19 +30,21 @@ class Service {
   void sendIgrejaProfileToConfirmation(FirebaseUser user, String name,
       String address, String phone, String email) {
     UserCollection userCollection = Db.values.userCollection;
-    ProfileStepConfirmationCollection profileStepConfirmationCollection = Db.values.profileStepConfirmation;
-    ProfileToConfirmCollection profileToConfirmCollection = Db.values.profileToConfirmCollection;
+    ProfileStepConfirmationCollection profileStepConfirmationCollection =
+        Db.values.profileStepConfirmation;
+    ProfileToConfirmCollection profileToConfirmCollection =
+        Db.values.profileToConfirmCollection;
     _profileToConfirm.document(user.uid).setData({
-      profileToConfirmCollection.user_id_field: user.uid,
-      profileToConfirmCollection.date_field: DateTime.now().toIso8601String()
+      profileToConfirmCollection.userIdField: user.uid,
+      profileToConfirmCollection.dateField: DateTime.now().toIso8601String()
     }, merge: true).whenComplete(() {
-      _users.document(user.uid)
-          .setData({
-        userCollection.name_field: name,
-        userCollection.address_field: address,
-        userCollection.phone_field: phone,
-        userCollection.email_field: email,
-        userCollection.profile_step_confirmation_field: profileStepConfirmationCollection.a_confirmar
+      _users.document(user.uid).setData({
+        userCollection.nameField: name,
+        userCollection.addressField: address,
+        userCollection.phoneField: phone,
+        userCollection.emailField: email,
+        userCollection.profileStepConfirmationField:
+            profileStepConfirmationCollection.aConfirmar
       }, merge: true);
     });
   }
@@ -50,23 +52,25 @@ class Service {
   void sendConfessorProfileToConfirmation(FirebaseUser user, String name,
       DateTime birthdate, DateTime orderdate, String order, String email) {
     UserCollection userCollection = Db.values.userCollection;
-    ProfileStepConfirmationCollection profileStepConfirmationCollection = Db.values.profileStepConfirmation;
-    ProfileToConfirmCollection profileToConfirmCollection = Db.values.profileToConfirmCollection;
-    _profileToConfirm.document(user.uid)
-        .setData({
-      profileToConfirmCollection.user_id_field: user.uid,
-      profileToConfirmCollection.date_field: DateTime.now().toIso8601String()
+    ProfileStepConfirmationCollection profileStepConfirmationCollection =
+        Db.values.profileStepConfirmation;
+    ProfileToConfirmCollection profileToConfirmCollection =
+        Db.values.profileToConfirmCollection;
+    _profileToConfirm.document(user.uid).setData({
+      profileToConfirmCollection.userIdField: user.uid,
+      profileToConfirmCollection.dateField: DateTime.now().toIso8601String()
     }, merge: true).whenComplete(() {
       Firestore.instance
-          .collection(Db.values.userCollection.collection_reference)
+          .collection(Db.values.userCollection.collectionReference)
           .document(user.uid)
           .setData({
-        userCollection.name_field: name,
-        userCollection.birthdate_field: birthdate.toIso8601String(),
-        userCollection.orderdate_field: orderdate.toIso8601String(),
-        userCollection.order_field: order,
-        userCollection.email_field: email,
-        userCollection.profile_step_confirmation_field: profileStepConfirmationCollection.a_confirmar
+        userCollection.nameField: name,
+        userCollection.birthdateField: birthdate.toIso8601String(),
+        userCollection.orderdateField: orderdate.toIso8601String(),
+        userCollection.orderField: order,
+        userCollection.emailField: email,
+        userCollection.profileStepConfirmationField:
+            profileStepConfirmationCollection.aConfirmar
       }, merge: true);
     });
   }
@@ -89,39 +93,39 @@ class Values {
 class UserCollection {
   const UserCollection();
 
-  String get collection_reference => 'users';
+  String get collectionReference => 'users';
 
-  String get creation_date_field => 'created_at';
+  String get creationDateField => 'created_at';
 
-  String get account_type_field => 'account_type';
+  String get accountTypeField => 'account_type';
 
-  String get profile_step_confirmation_field =>
+  String get profileStepConfirmationField =>
       Db.values.profileStepConfirmation.field;
 
-  String get name_field => 'name';
-  String  get address_field => 'address';
-  String get phone_field => 'phone';
-  String get email_field => 'email';
-  String get fullname_field => 'fullname';
-  String get birthdate_field => 'birthdate';
-  String get orderdate_field => 'orderdate';
-  String get order_field => 'order';
+  String get nameField => 'name';
+  String get addressField => 'address';
+  String get phoneField => 'phone';
+  String get emailField => 'email';
+  String get fullnameField => 'fullname';
+  String get birthdateField => 'birthdate';
+  String get orderdateField => 'orderdate';
+  String get orderField => 'order';
 }
 
 class ProfileToConfirmCollection {
   const ProfileToConfirmCollection();
 
-  String get collection_reference => 'profile_complete';
+  String get collectionReference => 'profile_complete';
 
-  String get user_id_field => 'account';
+  String get userIdField => 'account';
 
-  String get date_field => 'date';
+  String get dateField => 'date';
 }
 
 class AccountTypeCollection {
   const AccountTypeCollection();
 
-  String get filed => 'account_type';
+  String get field => 'account_type';
 
   int get penitente => 0;
 
@@ -139,7 +143,7 @@ class ProfileStepConfirmationCollection {
 
   int get incompleto => 0;
 
-  int get a_confirmar => 1;
+  int get aConfirmar => 1;
 
   int get confirmado => 2;
 }

@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'file:///D:/OneDrive/Documentos/GIT/ConfesseJa/lib/utils/services/db.dart';
+import 'package:confesseja/utils/services/db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final CollectionReference _userDbReference = Firestore.instance.collection(Db.values.userCollection.collection_reference);
+  final CollectionReference _userDbReference = Firestore.instance
+      .collection(Db.values.userCollection.collectionReference);
 
   Stream<FirebaseUser> get firebaseUser {
     return _auth.onAuthStateChanged;
@@ -59,12 +60,12 @@ class AuthService {
 
       // Create a credential from the access token
       final AuthCredential credential =
-      FacebookAuthProvider.getCredential(accessToken: accessToken.token);
+          FacebookAuthProvider.getCredential(accessToken: accessToken.token);
       // Once signed in, return the UserCredential
       AuthResult result = await _auth.signInWithCredential(credential);
       FirebaseUser user = result.user;
       if (user != null) {
-        if(!(await _verifyIfUserHasAccount(user))){
+        if (!(await _verifyIfUserHasAccount(user))) {
           Db.service.uploadUserToDb(user);
         }
         return user;
@@ -88,7 +89,7 @@ class AuthService {
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
 
       // Create a new credential
       final AuthCredential credential = GoogleAuthProvider.getCredential(
@@ -100,7 +101,7 @@ class AuthService {
       AuthResult result = await _auth.signInWithCredential(credential);
       FirebaseUser user = result.user;
       if (user != null) {
-        if(!(await _verifyIfUserHasAccount(user))){
+        if (!(await _verifyIfUserHasAccount(user))) {
           Db.service.uploadUserToDb(user);
         }
         return user;

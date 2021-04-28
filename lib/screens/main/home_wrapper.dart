@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
-import 'perish/home_perish.dart';
+//import 'perish/home_perish.dart';
 
 class HomeWrapper extends StatefulWidget {
   @override

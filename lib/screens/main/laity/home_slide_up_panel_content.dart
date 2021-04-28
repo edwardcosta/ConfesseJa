@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:confesseja/res/strings.dart';
+//import 'package:confesseja/res/strings.dart';
 import 'package:flutter/material.dart';
 
 class SlideUpPanelContent {
@@ -41,8 +41,8 @@ class SlideUpPanelContent {
                     contentPadding: EdgeInsets.only(
                         left: 20, bottom: 11, top: 11, right: 20),
                     prefixIcon: Padding(
-                      padding: EdgeInsets.only(
-                          top: 0), // add padding to adjust icon
+                      padding:
+                          EdgeInsets.only(top: 0), // add padding to adjust icon
                       child: Icon(Icons.search),
                     )),
               ),

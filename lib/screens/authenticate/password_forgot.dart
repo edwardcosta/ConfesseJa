@@ -142,7 +142,7 @@ class _PasswordForgotSate extends State<PasswordForgot> {
                                     },
                                   ),
                                 ),
-                                RaisedButton(
+                                ElevatedButton(
                                   child: Text(
                                     AppStrings.REGISTER_PW_FORGOT_SEND,
                                   ),

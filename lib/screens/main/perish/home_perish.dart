@@ -14,7 +14,7 @@ class _HomePerishState extends State<HomePerish> {
       body: Stack(
         children: <Widget>[
           Center(
-            child: RaisedButton(child: Text('Sair'), onPressed: () {
+            child: ElevatedButton(child: Text('Sair'), onPressed: () {
               _auth.logout();
             }),
           ),

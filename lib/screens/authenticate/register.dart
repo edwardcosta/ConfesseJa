@@ -267,7 +267,7 @@ class _RegisterState extends State<Register> {
                                   },
                                 ),
                               ),
-                              RaisedButton(
+                              ElevatedButton(
                                 child: Text(
                                   AppStrings.REGISTER_SIGNUP,
                                 ),
@@ -281,7 +281,7 @@ class _RegisterState extends State<Register> {
                                     }
                                   }
                                 },
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -291,6 +291,22 @@ class _RegisterState extends State<Register> {
                 ),
               ),
             ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 10,
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      AppStrings.REGISTER_WITH_SOCIAL,
+                      style: Theme.of(context).textTheme.bodyText1,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            )
           ]),
         ),
       ),

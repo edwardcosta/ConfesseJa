@@ -23,7 +23,7 @@ class WaitConfirmation extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              RaisedButton(
+              ElevatedButton(
                   child: Text('Sair'),
                   onPressed: () {
                     _auth.logout();
